@@ -12,7 +12,7 @@ class WechatController < ApplicationController
     body = request.body.read
     xml = MultiXml.parse(body)['xml']
     xml_doc = OpenStruct.new(xml)
-    if xml_doc.Content == 'vitamin'
+    if xml_doc.Content == 'vitamin' || xml_doc.Content == 'ma@oct'
       @from = xml_doc.ToUserName
       @to = xml_doc.FromUserName
       @msg_type = 'text'
