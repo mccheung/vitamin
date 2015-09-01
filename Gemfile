@@ -48,3 +48,4 @@ end
 gem 'redis'
 gem 'figaro'
 gem 'qiniu', '~> 6.2.1'
+gem 'devise'
