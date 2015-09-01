@@ -15,6 +15,13 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
+    @app_id = $wechat_app_id
+    @timestamp = Time.now.to_i
+    @nonce = SecureRandom.hex
+    @jsapi_ticket = $redis.get "jsapi_ticket:#{@app_id}"
+    @url = request.original_url
+    @signature = WechatHelper.jssdk_signature(
+      @jsapi_ticket, @timestamp, @nonce, @url)
     @item = Item.new
   end
 
