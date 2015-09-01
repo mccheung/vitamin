@@ -17,14 +17,14 @@ function doSubmit() {
     }
 }
 
-// function appendPreviewImg(localId) {
-//     img = document.createElement('img');
-//     img.setAttribute('class', 'th');
-//     img.src = localId;
-//     img.width = 64;
-//     img.height = 64;
-//     document.getElementById('preview_image').appendChild(img);
-// }
+function appendPreviewImg(localId) {
+    img = document.createElement('img');
+    img.setAttribute('class', 'th');
+    img.src = localId;
+    img.width = 64;
+    img.height = 64;
+    document.getElementById('preview_image').appendChild(img);
+}
 
 wx.ready(function(){
     document.getElementById('upload_image').onclick = function () {
@@ -39,7 +39,7 @@ wx.ready(function(){
                         localId: localId,
                         success: function (res) {
                             images.serverId.push(res.serverId);
-                            // appendPreviewImg(localId);
+                            appendPreviewImg(localId);
 
                             i++;
                             if (i < length) {
