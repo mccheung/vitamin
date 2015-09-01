@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_sign_up_params, only: [:create]
+  after_filter :remove_openid_from_session, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -45,7 +46,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
+
+  def remove_openid_from_session
+    if resource.persisted?
+      session.delete(:openid)
+    end
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
