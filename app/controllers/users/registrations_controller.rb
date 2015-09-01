@@ -4,8 +4,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    session[:openid] = params['oid']
-    super
+    openid = params['oid']
+    user = User.find_for_authentication(:openid => openid)
+    if user
+      sign_in(:user, user)
+      redirect_to :root
+    else
+      session[:openid] = params['oid']
+      super
+    end
   end
 
   # POST /resource
