@@ -52,3 +52,5 @@ gem 'devise'
 
 gem 'multi_xml'
 gem 'nokogiri'
+
+gem 'addressable'
