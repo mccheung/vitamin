@@ -19,6 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     params['user']['openid'] = session[:openid]
+    params['user']['password'] = Devise.friendly_token.first(8)
     super
   end
 
