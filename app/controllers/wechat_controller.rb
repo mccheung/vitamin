@@ -12,11 +12,12 @@ class WechatController < ApplicationController
     body = request.body.read
     xml = MultiXml.parse(body)['xml']
     xml_doc = OpenStruct.new(xml)
-    if xml_doc.Content == 'vitamin' || xml_doc.Content == 'ma@oct'
+    if xml_doc.Content == '借药'
       @from = xml_doc.ToUserName
       @to = xml_doc.FromUserName
       @msg_type = 'text'
       @content = bind_url(xml_doc.FromUserName)
+      puts @content
     else
       render nothing: true
     end
@@ -24,7 +25,7 @@ class WechatController < ApplicationController
 
   private
   def bind_url(openid)
-    "http://mc.ggrok.com/users/sign_up?oid=#{openid}"
+    "<a href=" << "\"http://mc.ggrok.com/users/sign_up?oid=#{openid}\"" << ">马村药库</a>"
   end
 
 end
