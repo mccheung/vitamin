@@ -9,7 +9,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user = User.find_for_authentication(:openid => openid)
     if user
       sign_in(:user, user)
-      redirect_to :root
     else
       session[:openid] = params['oid']
       super
@@ -58,6 +57,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.for(:sign_up) << :nickname
+  end
+
+  def after_sign_in_path_for(resource)
+    items_path
   end
 
   # If you have extra params to permit, append them to the sanitizer.
