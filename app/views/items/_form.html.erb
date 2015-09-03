@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <input type="hidden" id="media_ids" name="media_ids">
+
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -25,6 +27,7 @@
 <% end %>
 
 <a href="#" id="upload_image">上传图片</a>
+<a href="#" id="scan_qrcode">扫一扫</a>
 <div id="preview_image"></div>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -38,7 +41,8 @@
    jsApiList: [
      'chooseImage',
      'previewImage',
-     'uploadImage'
+     'uploadImage',
+     'scanQRCode'
    ]
  });
 </script>
