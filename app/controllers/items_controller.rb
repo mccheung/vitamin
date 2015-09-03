@@ -18,10 +18,11 @@ class ItemsController < ApplicationController
     @app_id = $wechat_app_id
     @timestamp = Time.now.to_i
     @nonce = SecureRandom.hex
-    @jsapi_ticket = $redis.get "jsapi_ticket:#{@app_id}"
     @url = request.original_url
+
+    jsapi_ticket = $redis.get "jsapi_ticket:#{$wechat_app_id}"
     @signature = WechatHelper.jssdk_signature(
-      @jsapi_ticket, @timestamp, @nonce, @url)
+      jsapi_ticket, @timestamp, @nonce, @url)
     @item = Item.new
   end
 
@@ -71,13 +72,13 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:name, :intro, :user_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_params
+    params.require(:item).permit(:name, :intro, :user_id)
+  end
 end

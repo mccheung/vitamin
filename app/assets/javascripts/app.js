@@ -9,7 +9,7 @@ function doSubmit() {
     alert("请输入物品名称");
     return false;
   } else {
-    var elem = document.getElementById('image_ids');
+    var elem = document.getElementById('media_ids');
     elem.value = images.serverId;
     images.localId = [];
     images.serverId = [];
@@ -27,6 +27,17 @@ function appendPreviewImg(localId) {
 }
 
 wx.ready(function(){
+  document.getElementById('scan_qrcode').onclick = function () {
+    wx.scanQRCode({
+      needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+      scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+      success: function (res) {
+        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+        console.info(result);
+      }
+    });
+  };
+  
   document.getElementById('upload_image').onclick = function () {
     wx.chooseImage({
       success: function (res) {
@@ -40,7 +51,7 @@ wx.ready(function(){
             success: function (res) {
               images.serverId.push(res.serverId);
               appendPreviewImg(localId);
-
+              
               i++;
               if (i < length) {
                 upload();
