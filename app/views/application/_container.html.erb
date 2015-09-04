@@ -1,9 +1,26 @@
 <div class="ui container">
   <% if notice %>
-    <p class="notice"><%= notice %></p>
+    <div class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header"><%= notice %></div>
+    </div>
   <% end %>
   <% if alert %>
-    <p class="alert"><%= alert %></p>
+    <div class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header"><%= alert %></div>
+    </div>
   <% end %>
   <%= yield %>
 </div>
+
+<script>
+ $('.message .close')
+    .on('click', function() {
+      $(this)
+      .closest('.message')
+      .transition('fade')
+        ;
+    })
+   ;
+</script>

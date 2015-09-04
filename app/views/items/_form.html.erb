@@ -1,30 +1,37 @@
 <%= form_for(@item, :html => {:class => 'ui form warning'}) do |f| %>
-  <% if @item.errors.any? %>
-    <div class="ui warning message">
-      <div class="header"><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</div>
 
-      <ul class="list">
-        <% @item.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <div class="ui pink segment">
+    <div class="ui top left attached pink label">
+      <%= t(:'title.edit_item') %>
     </div>
-  <% end %>
 
-  <div class="three fields">
-    <div class="field">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+    <% if @item.errors.any? %>
+      <div class="ui warning message">
+        <div class="header"><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</div>
+
+        <ul class="list">
+          <% @item.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="three fields">
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :intro %>
+        <%= f.text_field :intro %>
+      </div>
+      <div class="field">
+        <%= f.label :num %>
+        <%= f.number_field :num %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :intro %>
-      <%= f.text_field :intro %>
-    </div>
-    <div class="field">
-      <%= f.label :num %>
-      <%= f.number_field :num %>
-    </div>
+
+    <%= f.submit(:class => 'ui pink button') %>
   </div>
-
-  <%= f.submit(:class => 'ui submit button') %>
 <% end %>
