@@ -1,18 +1,35 @@
-<table class="ui unstackable pink table">
-  <thead>
-    <tr>
-      <th>药品名称</th>
-      <th>剩余数量</th>
-      <th>#</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
-    <tr>
-      <td><%= link_to item.name, edit_item_path(item) %></td>
-      <td><%= item.num %></td>
-      <td><%= link_to '删除', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if not @items.empty? %>
+  <table class="ui unstackable pink table">
+    <thead>
+      <tr>
+        <th>药品名称</th>
+        <th>剩余数量</th>
+        <th>#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= link_to item.name, edit_item_path(item) %></td>
+          <td><%= item.num %></td>
+          <td><%= link_to '删除', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="ui center aligned basic segment">
+    <div class="ui left icon action input">
+      <i class="search icon"></i>
+      <input type="text" placeholder="药名、功效">
+      <div class="ui pink submit button">搜索</div>
+    </div>
+    <div class="ui horizontal divider">
+      或
+    </div>
+    <button class="ui pink labeled icon button">
+      添加药品
+      <i class="plus square icon"></i>
+    </button>
+  </div>
+<% end %>
