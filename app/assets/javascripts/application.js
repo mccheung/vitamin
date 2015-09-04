@@ -11,4 +11,5 @@
 // about supported directives.
 //
 //= require jquery/dist/jquery.min
+//= require jquery_ujs
 //= require semantic/dist/semantic.min
