@@ -13,5 +13,5 @@ zh-CN:
 
     submit:
       item:
-        create: '添加'
-        update: '修改'
+        create: '提交'
+        update: '提交'

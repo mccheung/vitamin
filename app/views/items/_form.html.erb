@@ -2,7 +2,11 @@
 
   <div class="ui pink segment">
     <div class="ui top left attached pink label">
-      <%= t(:'title.edit_item') %>
+      <% if @item.persisted? %>
+        <%= t(:'title.edit_item') %>
+      <% else %>
+        <%= t(:'title.new_item') %>
+      <% end %>
     </div>
 
     <% if @item.errors.any? %>
@@ -32,6 +36,6 @@
       </div>
     </div>
 
-    <%= f.submit(:class => 'ui pink button') %>
+    <%= f.submit(:class => 'fluid ui pink basic button') %>
   </div>
 <% end %>
