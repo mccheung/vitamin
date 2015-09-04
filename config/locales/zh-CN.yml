@@ -1,0 +1,17 @@
+zh-CN:
+  title:
+    site: '马村药品库'
+    new_item: '添加药品'
+    edit_item: '编辑药品'
+
+  helpers:
+    label:
+      item:
+        name: '名称'
+        intro: '功效'
+        num: '数量'
+
+    submit:
+      item:
+        create: '添加'
+        update: '修改'
