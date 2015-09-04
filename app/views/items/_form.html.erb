@@ -1,6 +1,6 @@
-<%= form_for(@item, :html => {:class => 'ui form'}) do |f| %>
+<%= form_for(@item, :html => {:class => 'ui form warning'}) do |f| %>
   <% if @item.errors.any? %>
-    <div id="ui message">
+    <div class="ui warning message">
       <div class="header"><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</div>
 
       <ul class="list">
@@ -26,7 +26,5 @@
     </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit(:class => 'ui submit button') %>
 <% end %>
