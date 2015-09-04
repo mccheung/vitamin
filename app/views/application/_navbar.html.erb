@@ -1,0 +1,8 @@
+<!-- 网站导航 -->
+<% if user_signed_in? %>
+  <div class="ui three item menu">
+    <a class="item" href="/items">我的药品</a>
+    <a class="item" href="/search">搜索药品</a>
+    <a class="item" href="/users/edit">个人设置</a>
+  </div>
+<% end %>
