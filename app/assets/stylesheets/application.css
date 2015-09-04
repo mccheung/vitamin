@@ -12,3 +12,7 @@
  *
  *= require semantic/dist/semantic.min
  */
+
+.container {
+    margin-top: 14px;
+}
