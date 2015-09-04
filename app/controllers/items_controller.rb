@@ -1,3 +1,4 @@
+# coding: utf-8
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:show, :edit, :update, :destroy]
@@ -38,7 +39,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to items_url, notice: 'Item was successfully created.' }
+        format.html { redirect_to items_url, notice: '添加药品成功' }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new }
@@ -52,7 +53,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to items_url, notice: 'Item was successfully updated.' }
+        format.html { redirect_to items_url, notice: '修改药品成功' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
