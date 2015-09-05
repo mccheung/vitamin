@@ -1,3 +1,4 @@
+<% title @item.name %>
 <div class="fluid ui pink card">
   <div class="content">
     <a class="header"><%= @item.name %></a>
@@ -6,10 +7,13 @@
     </div>
   </div>
   <div class="extra content">
-    <a>
+    <span class="right floated">
+      <%= @item.created_at %>
+    </span>
+    <span>
       <i class="lab icon"></i>
       <%= @item.num %>
-    </a>
+    </span>
   </div>
   <%= link_to '编辑', edit_item_path(@item),
   class: 'ui bottom attached button' %>
