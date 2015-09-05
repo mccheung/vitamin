@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  root to: 'home#index'
-  
   devise_for :users,
              controllers: {
                sessions: 'users/sessions',
@@ -12,7 +10,8 @@ Rails.application.routes.draw do
   post '/wechat' => 'wechat#msg'
 
   resources :items
-  
+  root to: "items#index"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
