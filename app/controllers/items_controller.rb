@@ -2,6 +2,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_jssdk, only: [:new]
 
   # GET /items
   # GET /items.json
@@ -16,15 +17,8 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
-    @app_id = $wechat_app_id
-    @timestamp = Time.now.to_i
-    @nonce = SecureRandom.hex
-    @url = request.original_url
-
-    jsapi_ticket = $redis.get "jsapi_ticket:#{$wechat_app_id}"
-    @signature = WechatHelper.jssdk_signature(
-      jsapi_ticket, @timestamp, @nonce, @url)
     @item = Item.new
+    @item.num = 1
   end
 
   # GET /items/1/edit
@@ -81,5 +75,15 @@ class ItemsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def item_params
     params.require(:item).permit(:name, :intro, :num, :user_id)
+  end
+
+  def set_jssdk
+    @app_id = $wechat_app_id
+    @timestamp = Time.now.to_i
+    @nonce = SecureRandom.hex
+    @url = request.original_url
+    jsapi_ticket = $redis.get "jsapi_ticket:#{$wechat_app_id}"
+    @signature = WechatHelper.jssdk_signature(
+      jsapi_ticket, @timestamp, @nonce, @url)
   end
 end
