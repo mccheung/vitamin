@@ -16,7 +16,7 @@
           <td class="right aligned"><%= item.num %></td>
           <td class="right aligned">
             <%= link_to '编辑', edit_item_path(item) %>
-            <%= link_to '删除', item, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to '删除', item, method: :delete, data: { confirm: '确认删除？' } %>
           </td>
         </tr>
       <% end %>
