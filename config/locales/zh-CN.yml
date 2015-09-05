@@ -5,6 +5,7 @@ zh-CN:
     site: '马村药品库'
     new_item: '添加药品'
     edit_item: '编辑药品'
+    items: '我的药品'
 
   helpers:
     label:
