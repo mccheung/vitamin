@@ -9,8 +9,14 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= render "navbar" %>
-    <%= render "content" %>
-    <%= render "footer" %>
+    <header>
+      <%= render "header" %>
+    </header>
+    <main>
+      <%= render "content" %>
+    </main>
+    <footer>
+      <%= render "footer" %>
+    </footer>
   </body>
 </html>
