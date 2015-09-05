@@ -1,4 +1,6 @@
 zh-CN:
+  copyright_owner: '2014秋天马宝宝'
+
   title:
     site: '马村药品库'
     new_item: '添加药品'
@@ -13,5 +15,5 @@ zh-CN:
 
     submit:
       item:
-        create: '提交'
-        update: '提交'
+        create: '添加'
+        update: '修改'
