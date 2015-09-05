@@ -3,16 +3,21 @@
     <thead>
       <tr>
         <th>药品名称</th>
-        <th>剩余数量</th>
-        <th>#</th>
+        <!--         <th>功效</th> -->
+        <th class="right aligned">数量</th>
+        <th class="right aligned">#</th>
       </tr>
     </thead>
     <tbody>
       <% @items.each do |item| %>
         <tr>
           <td><%= link_to item.name, edit_item_path(item) %></td>
-          <td><%= item.num %></td>
-          <td><%= link_to '删除', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <!-- <td><%= item.intro %></td> -->
+          <td class="right aligned"><%= item.num %></td>
+          <td class="right aligned">
+            <%= link_to '编辑', edit_item_path(item) %>
+            <%= link_to '删除', item, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -24,9 +29,7 @@
       <input type="text" placeholder="药名、功效">
       <div class="ui pink submit button">搜索</div>
     </div>
-    <div class="ui horizontal divider">
-      或
-    </div>
+    <div class="ui horizontal divider"> 或 </div>
     <button class="ui pink labeled icon button">
       添加药品
       <i class="plus square icon"></i>
