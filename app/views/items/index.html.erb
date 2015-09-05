@@ -1,37 +1,51 @@
 <% title t(:'title.items') %>
+
 <% if not @items.empty? %>
-  <table class="ui unstackable pink table">
-    <thead>
-      <tr>
-        <th>药品名称</th>
-        <th class="right aligned">数量</th>
-        <th class="right aligned">#</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @items.each do |item| %>
-        <tr>
-          <td><%= link_to item.name, item %></td>
-          <td class="right aligned"><%= item.num %></td>
-          <td class="right aligned">
-            <%= link_to '编辑', edit_item_path(item) %>
-            <%= link_to '删除', item, method: :delete, data: { confirm: '确认删除？' } %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <div class="ui center aligned basic segment">
-    <div class="ui left icon action input">
-      <i class="search icon"></i>
-      <input type="text" placeholder="药名、功效">
-      <div class="ui pink submit button">搜索</div>
+  <% @items.each do |item| %>
+    <div class="fluid ui pink card">
+      <div class="content">
+        <a class="header"><%= item.name %></a>
+        <div class="description">
+          <%= item.intro %>
+        </div>
+      </div>
+      <div class="extra content">
+        <span class="right floated">
+          #<%= item.id %>
+        </span>
+        <span>
+          <i class="lab icon"></i>
+          <%= item.num %>
+        </span>
+      </div>
+      <div class="extra content">
+        <div class="ui large buttons">
+          <%= link_to '编辑', edit_item_path(item),
+          class: 'fluid ui pink button' %>
+          <div class="or"></div>
+          <%= link_to '删除', item, method: :delete,
+          class: 'fluid ui button',
+            data: { confirm: '确认删除？' } %>
+        </div>
+      </div>
     </div>
-    <div class="ui horizontal divider"> 或 </div>
-    <button class="ui pink labeled icon button">
-      添加药品
-      <i class="plus square icon"></i>
-    </button>
+  <% end %>
+<% else %>
+  <div class="ui center aligned pink segment">
+    <p>你还未添加任何药品</p>
+    <%= link_to '添加', new_item_path,
+    class: 'fluid ui pink button' %>
   </div>
+  <!-- <div class="ui center aligned basic segment">
+  <div class="ui left icon action input">
+  <i class="search icon"></i>
+  <input type="text" placeholder="药名、功效">
+  <div class="ui pink submit button">搜索</div>
+  </div>
+  <div class="ui horizontal divider"> 或 </div>
+  <button class="ui pink labeled icon button">
+  添加药品
+  <i class="plus square icon"></i>
+  </button>
+  </div> -->
 <% end %>
