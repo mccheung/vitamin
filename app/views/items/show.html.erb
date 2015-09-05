@@ -1,19 +1,16 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
-
-<p>
-  <strong>Intro:</strong>
-  <%= @item.intro %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @item.user %>
-</p>
-
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+<div class="fluid ui pink card">
+  <div class="content">
+    <a class="header"><%= @item.name %></a>
+    <div class="description">
+      <%= @item.intro %>
+    </div>
+  </div>
+  <div class="extra content">
+    <a>
+      <i class="lab icon"></i>
+      <%= @item.num %>
+    </a>
+  </div>
+  <%= link_to '编辑', edit_item_path(@item),
+  class: 'ui bottom attached button' %>
+</div>
