@@ -26,5 +26,10 @@ module Vitamin
     # bower
     config.assets.paths <<
       Rails.root.join("vendor", "assets", "bower_components")
+
+    # field error wrapper
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      "<div class='field error'>#{html_tag}</div>".html_safe
+    }
   end
 end
