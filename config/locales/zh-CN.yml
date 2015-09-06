@@ -21,3 +21,11 @@ zh-CN:
       item:
         create: '添加'
         update: '修改'
+
+  activerecord:
+    errors:
+      models:
+        item:
+          attributes:
+            name:
+              blank: '药名不能为空'
