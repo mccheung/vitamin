@@ -6,6 +6,7 @@ zh-CN:
     new_item: '添加药品'
     edit_item: '编辑药品'
     items: '我的药品'
+    bind_account: '绑定微信号'
 
   helpers:
     label:
@@ -13,6 +14,8 @@ zh-CN:
         name: '名称'
         intro: '功效'
         num: '数量'
+      user:
+        nickname: '群昵称'
 
     submit:
       item:
