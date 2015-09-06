@@ -9,15 +9,7 @@
       <% end %>
     </div>
 
-    <% if @item.errors.any? %>
-      <div class="ui warning message">
-        <ul class="list">
-          <% @item.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= error_messages! @item %>
 
     <div class="three fields">
       <div class="field">
@@ -39,7 +31,7 @@
       <div class="ui horizontal divider"> 或 </div>
       <%= link_to '删除', @item, method: :delete,
       class: 'fluid ui button',
-      data: { confirm: '确认删除？' } %>
+        data: { confirm: '确认删除？' } %>
     <% end %>
   </div>
 <% end %>
