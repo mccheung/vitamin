@@ -14,5 +14,6 @@ class User < ActiveRecord::Base
 
   has_many :items
 
-  validates :nickname, presence: true
+  validates :openid, presence: true, uniqueness: true
+  validates :nickname, presence: true, uniqueness: true
 end

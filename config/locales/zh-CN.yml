@@ -25,6 +25,7 @@ zh-CN:
   activerecord:
     attributes:
       user:
+        openid: '微信帐号'
         nickname: '昵称'
       item:
         name: '药品名称'
@@ -33,8 +34,12 @@ zh-CN:
       models:
         user:
           attributes:
+            openid:
+              blank: '不能为空。请联系系统管理员'
+              taken: '已绑定。'
             nickname:
               blank: '不能为空'
+              taken: '已存在'
         item:
           attributes:
             name:
