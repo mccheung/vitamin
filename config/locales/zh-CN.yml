@@ -15,7 +15,7 @@ zh-CN:
         intro: '功效'
         num: '数量'
       user:
-        nickname: '群昵称'
+        nickname: '昵称'
 
     submit:
       item:
@@ -23,9 +23,21 @@ zh-CN:
         update: '修改'
 
   activerecord:
+    attributes:
+      user:
+        nickname: '昵称'
+      item:
+        name: '药品名称'
+        num: '药品数量'
     errors:
       models:
+        user:
+          attributes:
+            nickname:
+              blank: '不能为空'
         item:
           attributes:
             name:
-              blank: '药名不能为空'
+              blank: '不能为空'
+            num:
+              blank: '不能为空'
