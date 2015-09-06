@@ -13,4 +13,6 @@ class User < ActiveRecord::Base
   end
 
   has_many :items
+
+  validates :nickname, presence: true
 end
