@@ -28,8 +28,13 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
-    @item.user = current_user
+    @item = Item.find_or_initialize_by(
+      {
+        name: item_params['name'].strip,
+        user_id: current_user.id
+      })
+
+    @item.num += item_params['num'].to_i
 
     respond_to do |format|
       if @item.save
@@ -74,7 +79,7 @@ class ItemsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def item_params
-    params.require(:item).permit(:name, :intro, :num, :user_id)
+    params.require(:item).permit(:name, :intro, :num)
   end
 
   def set_jssdk
