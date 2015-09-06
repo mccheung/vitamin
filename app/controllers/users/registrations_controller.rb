@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_sign_up_params, only: [:create]
   after_filter :remove_openid_from_session, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
+  # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -10,7 +10,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if user
       sign_in(:user, user)
     else
-      session[:openid] = params['oid']
+      if openid
+        session[:openid] = openid
+      end
       super
     end
   end
