@@ -25,7 +25,12 @@ class WechatController < ApplicationController
 
   private
   def bind_url(openid)
-    "<a href=" << "\"http://mc.ggrok.com/users/sign_up?oid=#{openid}\"" << ">马村药库</a>"
+    user = User.find_for_authentication(:openid => openid)
+    if user
+      "<a href=" << "\"http://mc.ggrok.com\"" << ">马村药品库</a>"
+    else
+      "您的微信号还未与马村药品库建立绑定。点击<a href=" << "\"http://mc.ggrok.com/users/sign_up?oid=#{openid}\"" << ">进行绑定</a>"
+    end
   end
 
 end
