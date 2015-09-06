@@ -28,14 +28,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.find_or_initialize_by(
-      {
-        name: item_params['name'].strip,
-        user_id: current_user.id
-      })
-
-    @item.num += item_params['num'].to_i
-
+    @item = Item.new(item_params)
     respond_to do |format|
       if @item.save
         format.html { redirect_to items_url, notice: '添加药品成功' }

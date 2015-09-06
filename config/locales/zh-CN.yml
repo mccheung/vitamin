@@ -46,3 +46,5 @@ zh-CN:
               blank: '不能为空'
             num:
               blank: '不能为空'
+              not_a_number: '必须为大于0的整数'
+              greater_than: '必须为大于0的整数'
