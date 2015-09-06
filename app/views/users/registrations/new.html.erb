@@ -8,9 +8,11 @@
 
     <%= devise_error_messages! %>
 
-    <div class="field">
-      <%= f.label :nickname %>
-      <%= f.text_field :nickname, autofocus: true %>
+    <div class="one field">
+      <div class="field">
+        <%= f.label :nickname %>
+        <%= f.text_field :nickname, autofocus: true %>
+      </div>
     </div>
 
     <%= f.submit("提交", :class => 'fluid pink ui button') %>
