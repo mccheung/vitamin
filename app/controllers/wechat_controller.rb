@@ -17,7 +17,6 @@ class WechatController < ApplicationController
       @to = xml_doc.FromUserName
       @msg_type = 'text'
       @content = bind_url(xml_doc.FromUserName)
-      puts @content
     else
       render nothing: true
     end
@@ -27,9 +26,9 @@ class WechatController < ApplicationController
   def bind_url(openid)
     user = User.find_for_authentication(:openid => openid)
     if user
-      "<a href=" << "\"http://mc.ggrok.com\"" << ">马村药品库</a>"
+      "<a href=" << "\"http://macun.goofansu.com\"" << ">马村药品库</a>"
     else
-      "您的微信号还未与马村药品库建立绑定。点击<a href=" << "\"http://mc.ggrok.com/users/sign_up?oid=#{openid}\"" << ">进行绑定</a>"
+      "您的微信号还未与马村药品库建立绑定。点击<a href=" << "\"http://macun.goofansu.com/users/sign_up?oid=#{openid}\"" << ">进行绑定</a>"
     end
   end
 

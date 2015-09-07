@@ -55,4 +55,6 @@ gem 'nokogiri'
 
 gem 'addressable'
 gem 'meta-tags'
-gem "bower-rails", "~> 0.10.0"
+gem 'bower-rails', "~> 0.10.0"
+
+gem 'puma'
