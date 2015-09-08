@@ -7,6 +7,7 @@ zh-CN:
     edit_item: '编辑药品'
     items: '我的药品'
     bind_account: '绑定微信号'
+    edit_user: '个人设置'
 
   helpers:
     label:
@@ -18,6 +19,8 @@ zh-CN:
         nickname: '昵称'
 
     submit:
+      user:
+        update: '修改'
       item:
         create: '添加'
         update: '修改'
