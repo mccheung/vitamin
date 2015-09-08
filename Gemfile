@@ -58,3 +58,4 @@ gem 'meta-tags'
 gem 'bower-rails', "~> 0.10.0"
 
 gem 'puma'
+gem 'instapush-api'
