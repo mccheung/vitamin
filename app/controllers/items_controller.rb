@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        push_event_new_item(current_user, @item)
+        PushHelper.push_new_item(current_user, @item)
         format.html { redirect_to items_url, notice: '添加药品成功' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -86,15 +86,5 @@ class ItemsController < ApplicationController
     jsapi_ticket = $redis.get "jsapi_ticket:#{$wechat_app_id}"
     @signature = WechatHelper.jssdk_signature(
       jsapi_ticket, @timestamp, @nonce, @url)
-  end
-
-  def push_event_new_item(user, item)
-    event = Instapush::Event.new 'new_item'
-    event.tracker = {
-      :nickname => user.nickname,
-      :item_name => item.name,
-      :item_num => item.num
-    }
-    $instapush.push event
   end
 end

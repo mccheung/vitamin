@@ -53,6 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def remove_openid_from_session
     if resource.persisted?
       session.delete(:openid)
+      PushHelper.push_signups(resource)
     end
   end
 
