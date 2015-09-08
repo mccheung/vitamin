@@ -8,7 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     openid = params['oid']
     user = User.find_for_authentication(:openid => openid)
     if user
-      return sign_in(:user, user)
+      sign_in(:user, user)
+      redirect_to items_path
     else
       if openid
         session[:openid] = openid
