@@ -3,5 +3,5 @@
   <a class="item <%= controller.class == ItemsController and controller.action_name == 'index' ? 'active' : '' %>" href="/items"><i class="lab icon"></i>我的药品</a>
   <a class="item <%= controller.class == ItemsController and controller.action_name == 'new' ? 'active' : '' %>" href="/items/new"><i class="add square icon"></i>添加药品</a>
   <!-- <a class="item" href="/search"><i class="search icon"></i>搜索</a> -->
-  <a class="item" href="/users/edit"><i class="setting icon"></i>个人设置</a>
+  <a class="item <%= controller.class == Users::RegistrationsController and controller.action_name == 'edit' ? 'active' : '' %>" href="/users/edit"><i class="setting icon"></i>个人设置</a>
 </div>
