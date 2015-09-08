@@ -17,6 +17,11 @@ class WechatController < ApplicationController
       @to = xml_doc.FromUserName
       @msg_type = 'text'
       @content = bind_url(xml_doc.FromUserName)
+    elsif xml_doc.Content == 'ma@oct'
+      @from = xml_doc.ToUserName
+      @to = xml_doc.FromUserName
+      @msg_type = 'text'
+      @content = xml_doc.FromUserName
     else
       render nothing: true
     end
