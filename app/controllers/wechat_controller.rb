@@ -4,6 +4,11 @@ class WechatController < ApplicationController
   # 接收微信的push消息，必须跳过CSRF检查
   skip_before_action :verify_authenticity_token
 
+  # 验证signature参数
+  before_action :check_signature_params,
+                :verify_signature,
+                only: [:verify, :msg]
+
   def verify
     render plain: params[:echostr]
   end
@@ -24,6 +29,23 @@ class WechatController < ApplicationController
       @content = xml_doc.FromUserName
     else
       render nothing: true
+    end
+  end
+
+  protected
+  def check_signature_params
+    if params[:nonce].nil? || params[:timestamp].nil? || params[:signature].nil?
+      render plain: "Bad request", status: :bad_request
+    end
+  end
+
+  def verify_signature
+    array = [Figaro.env.wechat_token,
+             params[:timestamp],
+             params[:nonce]].sort
+    dev_signature = Digest::SHA1.hexdigest(array.join)
+    if params[:signature] != dev_signature
+      render plain: "Invalid signature", status: :forbidden
     end
   end
 
