@@ -4,14 +4,23 @@
   <% @items.each do |item| %>
     <div class="fluid ui pink card">
       <div class="content">
-        <a class="header"><%= item.name %></a>
+        <div class="header"><%= item.name %></div>
         <div class="description">
           <%= item.intro %>
         </div>
       </div>
       <div class="extra content">
         <span class="right floated">
-          编号 #<%= item.id %>
+          <div class="meta">
+            <span><%= item.buy_from %></span>
+            <span>
+              <% if item.opened? %>
+                已开封
+              <% else %>
+                未开封
+              <% end %>
+            </span>
+          </div>
         </span>
         <span>
           <i class="lab icon"></i>

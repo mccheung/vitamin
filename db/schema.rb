@@ -11,15 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906065758) do
+ActiveRecord::Schema.define(version: 20150908215434) do
 
   create_table "items", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "intro",      limit: 255
     t.integer  "num",        limit: 4
+    t.boolean  "opened",                 default: false
+    t.string   "buy_from",   limit: 255, default: ""
+    t.datetime "expire_at"
     t.integer  "user_id",    limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   add_index "items", ["name"], name: "index_items_on_name", using: :btree

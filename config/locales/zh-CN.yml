@@ -33,6 +33,8 @@ zh-CN:
       item:
         name: '药品名称'
         num: '药品数量'
+        opened: '已开封?'
+        buy_from: '购买渠道'
     errors:
       models:
         user:
