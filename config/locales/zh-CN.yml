@@ -37,6 +37,7 @@ zh-CN:
         opened: '已开封?'
         buy_from: '购买渠道'
         expire_at: '过期时间'
+        remark: '备注'
     errors:
       models:
         user:

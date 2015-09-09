@@ -76,7 +76,8 @@ class ItemsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def item_params
     params.require(:item).permit(:name, :intro, :num,
-                                 :opened, :buy_from, :expire_at)
+                                 :opened, :buy_from, :expire_at,
+                                 :remark)
   end
 
   def set_jssdk
