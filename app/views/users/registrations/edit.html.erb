@@ -9,15 +9,49 @@
 
     <%= devise_error_messages! %>
 
-    <div class="one field">
-      <div class="field">
-        <%= f.label :nickname %>
-        <%= f.text_field :nickname, autofocus: true %>
+    <div class="field">
+      <%= f.label :nickname %>
+      <%= f.text_field :nickname, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <label for="address">地址</label>
+      <div class="ui fluid search selection dropdown">
+        <input type="hidden" name="address">
+        <i class="dropdown icon"></i>
+        <div class="default text">选择您的地址</div>
+        <div class="menu"></div>
       </div>
     </div>
 
-    <div class="actions">
-      <%= f.submit(:class => 'fluid pink ui button') %>
-    </div>
+    <%= f.submit(:class => 'fluid pink ui button') %>
   </div>
 <% end %>
+
+<script>
+ $('.search.dropdown')
+    .dropdown({
+      apiSettings: {
+        url: 'http://restapi.amap.com/v3/assistant/inputtips?s=rsv3&city={city}&key={key}&keywords={query}',
+        dataType: 'jsonp',
+        stateContext: '.search.dropdown',
+        urlData: {
+          key: '263c0cb87ee1ac03561350d3dae3dde2',
+          city: 'shanghai'
+        },
+        onResponse: function(response) {
+          var result = {};
+          result["success"] = true;
+          result["results"] = response.tips;
+          return result;
+        },
+        onFailure: function() {
+          console.info("fail");
+        }
+      },
+      fields: {
+        name: 'name',
+        value: 'location'
+      }
+    });
+</script>
