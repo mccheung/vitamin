@@ -36,13 +36,10 @@
         </span>
       </div>
       <div class="extra content">
-        <div class="ui large buttons">
-          <%= link_to '编辑', edit_item_path(item),
-          class: 'fluid ui pink button' %>
+        <div class="fluid ui large buttons">
+          <%= link_to '编辑', edit_item_path(item), class: 'ui pink button' %>
           <div class="or"></div>
-          <%= link_to '删除', item, method: :delete,
-          class: 'fluid ui button',
-            data: { confirm: '确认删除？' } %>
+          <%= link_to '删除', item, method: :delete, class: 'ui button', data: { confirm: '确认删除？' } %>
         </div>
       </div>
     </div>
