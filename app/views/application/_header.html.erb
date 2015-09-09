@@ -9,6 +9,6 @@
   <% end %>
 
   <%= link_to(edit_profile_path(current_user), class: "item #{controller.class == ProfilesController and controller.action_name == 'edit' ? 'active' : ''}") do %>
-    <i class="setting square icon"></i><%= t(:'title.edit_profile') %>
+    <i class="setting icon"></i><%= t(:'title.edit_profile') %>
   <% end %>
 </div>
