@@ -17,15 +17,6 @@
         <%= f.text_field :name %>
       </div>
       <div class="field">
-        <%= f.label :num %>
-        <%= f.number_field :num %>
-      </div>
-
-      <!-- 选填 -->
-      <h4 class="ui horizontal divider header dash_header">
-        以下部分为选填
-      </h4>
-      <div class="field">
         <%= f.label :intro %>
         <%= f.text_field :intro, placeholder: '高烧 感冒 鼻塞' %>
       </div>
@@ -33,6 +24,14 @@
         <%= f.label :buy_from %>
         <%= f.text_field :buy_from, placeholder: '美亚' %>
       </div>
+      <div class="field">
+        <%= f.label :num %>
+        <%= f.number_field :num %>
+      </div>
+      <!-- <div class="field">
+      <%= f.label :expire_at %>
+      <%= f.text_field :expire_at, placeholder: '请选择日期' %>
+      </div> -->
       <div class="field">
         <div class="ui checkbox">
           <%= f.check_box :opened %>
@@ -50,3 +49,9 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+ /* $('#item_expire_at').pickadate({
+    formatSubmit: 'yyyy/mm/dd'
+    }); */
+</script>
