@@ -1,7 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_sign_up_params, only: [:create]
   after_filter :remove_openid_from_session, only: [:create]
-  before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -62,16 +61,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.for(:sign_up) << :nickname
   end
 
-  def configure_account_update_params
-    devise_parameter_sanitizer.for(:account_update) << :nickname
-  end
-
   def after_sign_in_path_for(resource)
     items_path
-  end
-
-  def update_resource(resource, params)
-    resource.update_without_password(params)
   end
 
   # The path used after sign up.

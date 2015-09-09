@@ -1,5 +1,17 @@
 <div class="ui container">
-  <%= render "notice_alert" %>
+  <% if notice %>
+    <div class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header"><%= notice %></div>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header"><%= alert %></div>
+    </div>
+  <% end %>
+
   <%= yield %>
 </div>
 

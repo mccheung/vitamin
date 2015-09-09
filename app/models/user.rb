@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   end
 
   has_many :items
+  has_one :profile
 
   validates :openid, presence: true, uniqueness: true
   validates :nickname, presence: true, uniqueness: true

@@ -1,30 +1,38 @@
-<% title t(:'title.edit_user') %>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'ui form warning' }) do |f| %>
-
+<%= form_for(@profile, :html => {:class => 'ui form warning'}) do |f| %>
   <div class="ui pink segment">
     <div class="ui top left attached pink label">
-      <%= t(:'title.edit_user') %>
+      <%= t(:'title.edit_profile') %>
     </div>
 
-    <%= devise_error_messages! %>
+    <%= error_messages! @profile %>
 
     <div class="field">
       <%= f.label :nickname %>
-      <%= f.text_field :nickname, autofocus: true %>
+      <%= f.text_field :nickname %>
     </div>
 
     <div class="field">
       <label for="address">地址</label>
       <div class="ui fluid search selection dropdown">
-        <input type="hidden" name="address">
+        <input type="hidden" id="lng_lat">
         <i class="dropdown icon"></i>
-        <div class="default text">选择您的地址</div>
-        <div class="menu"></div>
+        <% if f.object.address.blank? %>
+          <%= content_tag(:div, "请输入地址后从选项中选择", id: "address_name", class: ["default", "text"]) %>
+        <% else %>
+          <%= content_tag(:div, f.object.address, id: "address_name", class: "text") %>
+        <% end %>
+        <div class="menu">
+        </div>
       </div>
     </div>
 
-    <%= f.submit(:class => 'fluid pink ui button') %>
+    <%= f.hidden_field :address %>
+    <%= f.hidden_field :lng %>
+    <%= f.hidden_field :lat %>
+
+    <div class="actions">
+      <%= f.submit(:class => 'fluid pink ui button') %>
+    </div>
   </div>
 <% end %>
 
@@ -54,4 +62,13 @@
         value: 'location'
       }
     });
+
+ $('#lng_lat').change(function() {
+   var address_name = $('#address_name').text();
+   $('#profile_address').val(address_name);
+
+   var arr = $('#lng_lat').val().split(',');
+   $('#profile_lng').val(arr[0]);
+   $('#profile_lat').val(arr[1]);
+ });
 </script>

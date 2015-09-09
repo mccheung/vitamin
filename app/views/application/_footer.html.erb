@@ -4,7 +4,7 @@
     <div class="ui list">
       <div class="item">&copy; <%= t :copyright_owner %> 保留所有权利</div>
       <% if user_signed_in? %>
-        <div class="item">欢迎您， @<%= current_user.nickname %></div>
+        <div class="item">欢迎您， @<%= current_user.profile.nickname %></div>
       <% end %>
     </div>
   </div>

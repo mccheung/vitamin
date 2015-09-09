@@ -1,7 +1,14 @@
 <!-- 网站导航 -->
 <div class="ui pink inverted three item labeled icon attached borderless small menu">
-  <a class="item <%= controller.class == ItemsController and controller.action_name == 'index' ? 'active' : '' %>" href="/items"><i class="lab icon"></i>我的药品</a>
-  <a class="item <%= controller.class == ItemsController and controller.action_name == 'new' ? 'active' : '' %>" href="/items/new"><i class="add square icon"></i>添加药品</a>
-  <!-- <a class="item" href="/search"><i class="search icon"></i>搜索</a> -->
-  <a class="item <%= controller.class == Users::RegistrationsController and controller.action_name == 'edit' ? 'active' : '' %>" href="/users/edit"><i class="setting icon"></i>个人设置</a>
+  <%= link_to(items_path, class: "item #{controller.class == ItemsController and controller.action_name == 'index' ? 'active' : ''}") do %>
+    <i class="lab icon"></i><%= t(:'title.items') %>
+  <% end %>
+
+  <%= link_to(new_item_path, class: "item #{controller.class == ItemsController and controller.action_name == 'new' ? 'active' : ''}") do %>
+    <i class="add square icon"></i><%= t(:'title.new_item') %>
+  <% end %>
+
+  <%= link_to(edit_profile_path(current_user), class: "item #{controller.class == ProfilesController and controller.action_name == 'edit' ? 'active' : ''}") do %>
+    <i class="add square icon"></i><%= t(:'title.edit_profile') %>
+  <% end %>
 </div>

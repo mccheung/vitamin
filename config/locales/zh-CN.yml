@@ -7,7 +7,7 @@ zh-CN:
     edit_item: '编辑药品'
     items: '我的药品'
     bind_account: '绑定微信号'
-    edit_user: '个人设置'
+    edit_profile: '个人资料'
 
   helpers:
     label:
@@ -19,7 +19,7 @@ zh-CN:
         nickname: '昵称'
 
     submit:
-      user:
+      profile:
         update: '修改'
       item:
         create: '添加'
@@ -29,7 +29,6 @@ zh-CN:
     attributes:
       user:
         openid: '微信帐号'
-        nickname: '昵称'
       item:
         name: '药品名称'
         intro: '功效'
@@ -38,6 +37,9 @@ zh-CN:
         buy_from: '购买渠道'
         expire_at: '过期时间'
         remark: '备注'
+      profile:
+        nickname: '昵称'
+        address: '地址'
     errors:
       models:
         user:
