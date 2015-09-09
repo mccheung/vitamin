@@ -59,3 +59,5 @@ gem 'bower-rails', "~> 0.10.0"
 
 gem 'puma'
 gem 'instapush-api'
+
+gem 'newrelic_rpm'
