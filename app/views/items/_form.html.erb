@@ -11,71 +11,69 @@
 
     <%= error_messages! @item %>
 
-    <div>
-      <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </div>
-      <div class="field">
-        <%= f.label :intro %>
-        <%= f.text_field :intro, placeholder: '高烧 感冒 鼻塞' %>
-      </div>
-      <div class="field">
-        <%= f.label :buy_from %>
-        <%= f.text_field :buy_from, placeholder: '美亚' %>
-      </div>
-      <div class="field">
-        <%= f.label :num %>
-        <%= f.number_field :num %>
-      </div>
-      <div class="field">
-        <%= f.hidden_field :expire_at %>
-        <%= f.label :expire_at %>
-        <div class="two fields">
-          <div class="field">
-            <select class="ui dropdown" id="expire_at_year">
-              <option value="">年</option>
-              <option value="2015">2015</option>
-              <option value="2016">2016</option>
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-            </select>
-          </div>
-          <div class="field">
-            <select class="ui dropdown" id="expire_at_month">
-              <option value="">月</option>
-              <option value="01">1月</option>
-              <option value="02">2月</option>
-              <option value="03">3月</option>
-              <option value="04">4月</option>
-              <option value="05">5月</option>
-              <option value="06">6月</option>
-              <option value="07">7月</option>
-              <option value="08">8月</option>
-              <option value="09">9月</option>
-              <option value="10">10月</option>
-              <option value="11">11月</option>
-              <option value="12">12月</option>
-            </select>
-          </div>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :intro %>
+      <%= f.text_field :intro, placeholder: '高烧 感冒 鼻塞' %>
+    </div>
+    <div class="field">
+      <%= f.label :buy_from %>
+      <%= f.text_field :buy_from, placeholder: '美亚' %>
+    </div>
+    <div class="field">
+      <%= f.label :num %>
+      <%= f.number_field :num %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :expire_at %>
+      <%= f.label :expire_at %>
+      <div class="two fields">
+        <div class="field">
+          <select class="ui dropdown" id="expire_at_year">
+            <option value="">年</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+          </select>
+        </div>
+        <div class="field">
+          <select class="ui dropdown" id="expire_at_month">
+            <option value="">月</option>
+            <option value="01">1月</option>
+            <option value="02">2月</option>
+            <option value="03">3月</option>
+            <option value="04">4月</option>
+            <option value="05">5月</option>
+            <option value="06">6月</option>
+            <option value="07">7月</option>
+            <option value="08">8月</option>
+            <option value="09">9月</option>
+            <option value="10">10月</option>
+            <option value="11">11月</option>
+            <option value="12">12月</option>
+          </select>
         </div>
       </div>
-      <div class="field">
-        <div class="ui checkbox">
-          <%= f.check_box :opened %>
-          <%= f.label :opened %>
-        </div>
+    </div>
+    <div class="field">
+      <div class="ui checkbox">
+        <%= f.check_box :opened %>
+        <%= f.label :opened %>
       </div>
-      <!-- 选填 -->
-      <h4 class="ui horizontal divider header dash_header">
-        以下部分为选填
-      </h4>
-      <div class="field">
-        <%= f.label :remark %>
-        <%= f.text_area :remark %>
-      </div>
+    </div>
+    <!-- 选填 -->
+    <h4 class="ui horizontal divider header dash_header">
+      以下部分为选填
+    </h4>
+    <div class="field">
+      <%= f.label :remark %>
+      <%= f.text_area :remark %>
     </div>
 
     <%= f.submit(:class => 'fluid pink ui button') %>
