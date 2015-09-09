@@ -1,4 +1,4 @@
-<%= form_for(@item, :html => {:class => 'ui form warning'}) do |f| %>
+<%= form_for(@item, :html => {:class => 'ui form warning', :onsubmit => "return doSubmit();"}) do |f| %>
 
   <div class="ui pink segment">
     <div class="ui top left attached pink label">
@@ -11,7 +11,7 @@
 
     <%= error_messages! @item %>
 
-    <div class="three fields">
+    <div>
       <div class="field">
         <%= f.label :name %>
         <%= f.text_field :name %>
@@ -28,10 +28,40 @@
         <%= f.label :num %>
         <%= f.number_field :num %>
       </div>
-      <!-- <div class="field">
-      <%= f.label :expire_at %>
-      <%= f.date_field :expire_at %>
-      </div> -->
+      <div class="field">
+        <%= f.hidden_field :expire_at %>
+        <%= f.label :expire_at %>
+        <div class="two fields">
+          <div class="field">
+            <select class="ui dropdown" id="expire_at_year">
+              <option value="">年</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+          <div class="field">
+            <select class="ui dropdown" id="expire_at_month">
+              <option value="">月</option>
+              <option value="01">1月</option>
+              <option value="02">2月</option>
+              <option value="03">3月</option>
+              <option value="04">4月</option>
+              <option value="05">5月</option>
+              <option value="06">6月</option>
+              <option value="07">7月</option>
+              <option value="08">8月</option>
+              <option value="09">9月</option>
+              <option value="10">10月</option>
+              <option value="11">11月</option>
+              <option value="12">12月</option>
+            </select>
+          </div>
+        </div>
+      </div>
       <div class="field">
         <div class="ui checkbox">
           <%= f.check_box :opened %>
@@ -57,3 +87,25 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+ function doSubmit() {
+   var year = $('#expire_at_year').val();
+   var month = $('#expire_at_month').val();
+   if(year != '' && month != '') {
+     var expire_at = year+"-"+month+"-"+"01";
+     $('#item_expire_at').val(expire_at);
+   }
+   return true;
+ }
+
+ $(function() {
+   var expire_at = $('#item_expire_at').val();
+   if(expire_at != '') {
+     var arr = expire_at.split("-");
+     $('#expire_at_year').val(arr[0]);
+     $('#expire_at_month').val(arr[1]);
+   }
+   $('select.dropdown').dropdown();
+ });
+</script>

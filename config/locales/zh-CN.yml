@@ -60,3 +60,5 @@ zh-CN:
               blank: '不能为空'
             buy_from:
               blank: '不能为空'
+            expire_at:
+              invalid: '必须选择'
