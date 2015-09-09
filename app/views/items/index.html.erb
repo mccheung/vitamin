@@ -4,36 +4,13 @@
   <% @items.each do |item| %>
     <div class="fluid ui pink card">
       <div class="content">
-        <div class="header"><%= item.name %></div>
-        <div class="meta">
-          <span><%= item.intro %></span>
-          <span class="right floated">
-            <% if item.expire_at %>
-              <%= item.expire_at.strftime('%Y-%m') %> 过期
-            <% end %>
-          </span>
-        </div>
-        <div class="description">
-          <%= item.remark %>
-        </div>
-      </div>
-      <div class="extra content">
-        <span class="right floated">
-          <div class="meta">
-            <span><%= item.buy_from %></span>
-            <span>
-              <% if item.opened? %>
-                已开封
-              <% else %>
-                未开封
-              <% end %>
-            </span>
-          </div>
-        </span>
-        <span>
-          <i class="lab icon"></i>
+        <div class="right floated">
+          <i class="pink lab icon"></i>
           <%= item.num %>
-        </span>
+        </div>
+        <div class="header">
+          <%= item.name %>
+        </div>
       </div>
       <div class="extra content">
         <div class="fluid ui large buttons">
@@ -50,16 +27,4 @@
     <%= link_to '立即添加', new_item_path,
     class: 'fluid ui pink button' %>
   </div>
-  <!-- <div class="ui center aligned basic segment">
-  <div class="ui left icon action input">
-  <i class="search icon"></i>
-  <input type="text" placeholder="药名、功效">
-  <div class="ui pink submit button">搜索</div>
-  </div>
-  <div class="ui horizontal divider"> 或 </div>
-  <button class="ui pink labeled icon button">
-  添加药品
-  <i class="plus square icon"></i>
-  </button>
-  </div> -->
 <% end %>
