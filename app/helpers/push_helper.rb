@@ -12,7 +12,7 @@ module PushHelper
 
     def push_signups(user)
       event = Instapush::Event.new 'signups'
-      event.tracker = { :nickname => user.nickname }
+      event.tracker = { :nickname => user.profile.nickname }
       $instapush.push event
     end
   end

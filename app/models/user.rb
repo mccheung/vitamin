@@ -16,5 +16,5 @@ class User < ActiveRecord::Base
   has_one :profile
 
   validates :openid, presence: true, uniqueness: true
-  validates :nickname, presence: true, uniqueness: true
+  accepts_nested_attributes_for :profile
 end

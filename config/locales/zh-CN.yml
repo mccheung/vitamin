@@ -15,8 +15,6 @@ zh-CN:
         name: '名称'
         intro: '功效'
         num: '数量'
-      user:
-        nickname: '昵称'
       profile:
         nickname: '昵称'
 
@@ -48,10 +46,7 @@ zh-CN:
           attributes:
             openid:
               blank: '不能为空。请联系系统管理员'
-              taken: '已绑定。'
-            nickname:
-              blank: '不能为空'
-              taken: '已存在'
+              taken: '已绑定'
         item:
           attributes:
             name:

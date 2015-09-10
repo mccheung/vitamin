@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_sign_up_params, only: [:create]
-  after_filter :save_user_profile, :remove_openid_from_session, only: [:create]
+  after_filter :remove_openid_from_session, only: [:create]
 
   # GET /resource/sign_up
   def new
@@ -57,17 +57,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def save_user_profile
-    if resource.persisted?
-      profile = Profile.new
-      profile.user = resource
-      profile.nickname = resource.nickname
-      profile.save
-    end
-  end
-
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) << :nickname
+    devise_parameter_sanitizer.for(:sign_up) { |u|
+      u.permit(:openid, :password, profile_attributes: [:nickname])
+    }
   end
 
   def after_sign_in_path_for(resource)

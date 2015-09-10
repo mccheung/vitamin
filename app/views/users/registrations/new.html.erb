@@ -8,11 +8,12 @@
 
     <%= devise_error_messages! %>
 
-    <div class="one field">
-      <div class="field">
-        <%= f.label :nickname %>
-        <%= f.text_field :nickname, autofocus: true %>
-      </div>
+    <div class="field">
+      <% resource.build_profile %>
+      <%= f.fields_for :profile do |profile_fields| %>
+        <%= profile_fields.label :nickname %>
+        <%= profile_fields.text_field :nickname, autofocus: true %>
+      <% end %>
     </div>
 
     <%= f.submit("提交", :class => 'fluid pink ui button') %>
