@@ -17,6 +17,8 @@ zh-CN:
         num: '数量'
       user:
         nickname: '昵称'
+      profile:
+        nickname: '昵称'
 
     submit:
       profile:
@@ -64,3 +66,8 @@ zh-CN:
               blank: '不能为空'
             expire_at:
               invalid: '必须选择'
+        profile:
+          attributes:
+            nickname:
+              blank: '不能为空'
+              taken: '已存在'
