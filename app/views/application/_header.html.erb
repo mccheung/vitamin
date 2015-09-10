@@ -1,14 +1,16 @@
-<!-- 网站导航 -->
-<div class="ui pink inverted three item labeled icon attached borderless small menu">
-  <%= link_to(items_path, class: "item #{controller.class == ItemsController and controller.action_name == 'index' ? 'active' : ''}") do %>
-    <i class="lab icon"></i><%= t(:'title.items') %>
-  <% end %>
+<% if current_user %>
+  <div class="ui pink inverted three item labeled icon attached borderless small menu">
+    <%= link_to(items_path, class: "item #{controller.class == ItemsController and controller.action_name == 'index' ? 'active' : ''}") do %>
+      <i class="lab icon"></i><%= t(:'title.items') %>
+    <% end %>
 
-  <%= link_to(new_item_path, class: "item #{controller.class == ItemsController and controller.action_name == 'new' ? 'active' : ''}") do %>
-    <i class="add square icon"></i><%= t(:'title.new_item') %>
-  <% end %>
+    <%= link_to(new_item_path, class: "item #{controller.class == ItemsController and controller.action_name == 'new' ? 'active' : ''}") do %>
+      <i class="add square icon"></i><%= t(:'title.new_item') %>
+    <% end %>
 
-  <%= link_to(edit_profile_path(current_user), class: "item #{controller.class == ProfilesController and controller.action_name == 'edit' ? 'active' : ''}") do %>
-    <i class="setting icon"></i><%= t(:'title.edit_profile') %>
-  <% end %>
-</div>
+
+    <%= link_to(edit_profile_path(current_user), class: "item #{controller.class == ProfilesController and controller.action_name == 'edit' ? 'active' : ''}") do %>
+      <i class="setting icon"></i><%= t(:'title.edit_profile') %>
+    <% end %>
+  </div>
+<% end %>
