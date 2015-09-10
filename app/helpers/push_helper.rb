@@ -1,9 +1,9 @@
 module PushHelper
   class << self
-    def push_new_item(user, item)
+    def push_new_item(item)
       event = Instapush::Event.new 'new_item'
       event.tracker = {
-        :nickname => user.nickname,
+        :nickname => item.profile.nickname,
         :item_name => item.name,
         :item_num => item.num
       }

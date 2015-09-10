@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        PushHelper.push_new_item(current_user, @item)
+        PushHelper.push_new_item(@item)
         format.html { redirect_to items_url, notice: '添加药品成功' }
         format.json { render :show, status: :created, location: @item }
       else
