@@ -29,7 +29,11 @@ class WechatController < ApplicationController
       @content = xml_doc.FromUserName
     else
       arr = Item.where("name LIKE '%#{xml_doc.Content}%'")
-            .eager_load(:profile).pluck(:name, :num, :nickname).uniq
+            .eager_load(:profile)
+            .order(num: :desc)
+            .limit(5)
+            .pluck(:name, :num, :nickname)
+            .uniq
       render nothing: true if arr.empty?
 
       @from = xml_doc.ToUserName
