@@ -28,7 +28,14 @@ class WechatController < ApplicationController
       @msg_type = 'text'
       @content = xml_doc.FromUserName
     else
-      render nothing: true
+      items = Item.where("name LIKE '%#{xml_doc.Content}%'")
+      render nothing: true if items.empty?
+
+      nicknames = items.each.map { |item| item.profile.nickname }
+      @from = xml_doc.ToUserName
+      @to = xml_doc.FromUserName
+      @msg_type = 'text'
+      @content = nicknames.uniq.join("\n")
     end
   end
 
