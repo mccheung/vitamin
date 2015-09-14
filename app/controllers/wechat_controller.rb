@@ -28,14 +28,16 @@ class WechatController < ApplicationController
       @msg_type = 'text'
       @content = xml_doc.FromUserName
     else
-      nicknames = Item.where("name LIKE '%#{xml_doc.Content}%'")
-                  .eager_load(:profile).pluck(:nickname).uniq
-      render nothing: true if nicknames.empty?
+      arr = Item.where("name LIKE '%#{xml_doc.Content}%'")
+            .eager_load(:profile).pluck(:name, :num, :nickname).uniq
+      render nothing: true if arr.empty?
 
       @from = xml_doc.ToUserName
       @to = xml_doc.FromUserName
       @msg_type = 'text'
-      @content = nicknames.join("\n")
+      @content = arr.each.map { |name, num, nickname|
+        name + "\n" + nickname + "\n数量：" + num.to_s + "\n"
+      }.join("\n")
     end
   end
 
