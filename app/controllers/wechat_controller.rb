@@ -41,7 +41,7 @@ class WechatController < ApplicationController
       @msg_type = 'text'
       @content = arr.each.map { |name, num, nickname|
         name + "\n" + nickname + "\n数量：" + num.to_s + "\n"
-      }.join("\n")
+      }.join("\n") + "\n注意：以上结果是数量最多的前5位麻麻"
     end
   end
 
