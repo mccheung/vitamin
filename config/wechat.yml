@@ -3,7 +3,7 @@ default: &default
   secret: "09b4223ab81f54154796b805ea395d48"
   token:  "test"
   access_token: "/tmp/vitamin_access_token"
-  skip_verify_ssl: false
+  skip_verify_ssl: true
 
 production:
   appid: <%= Figaro.env.wechat_app_id %>
