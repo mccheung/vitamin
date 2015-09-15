@@ -61,3 +61,5 @@ gem 'puma'
 gem 'instapush-api'
 
 gem 'newrelic_rpm'
+
+gem 'wechat'

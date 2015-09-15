@@ -1,64 +1,30 @@
 # coding: utf-8
 class WechatController < ApplicationController
 
-  # 接收微信的push消息，必须跳过CSRF检查
-  skip_before_action :verify_authenticity_token
+  wechat_responder
 
-  # 验证signature参数
-  before_action :check_signature_params,
-                :verify_signature,
-                only: [:verify, :msg]
-
-  def verify
-    render plain: params[:echostr]
+  on :text, with: "借药" do |request|
+    request.reply.text "#{bind_url request[:FromUserName]}"
   end
 
-  def msg
-    body = request.body.read
-    xml = MultiXml.parse(body)['xml']
-    xml_doc = OpenStruct.new(xml)
-    if xml_doc.Content == '借药'
-      @from = xml_doc.ToUserName
-      @to = xml_doc.FromUserName
-      @msg_type = 'text'
-      @content = bind_url(xml_doc.FromUserName)
-    elsif xml_doc.Content == 'ma@oct'
-      @from = xml_doc.ToUserName
-      @to = xml_doc.FromUserName
-      @msg_type = 'text'
-      @content = xml_doc.FromUserName
-    else
-      arr = Item.where("name LIKE '%#{xml_doc.Content}%'")
-            .eager_load(:profile)
-            .order(num: :desc)
-            .limit(5)
-            .pluck(:name, :num, :nickname)
-            .uniq
-      render nothing: true if arr.empty?
+  on :text, with: "ma@oct" do |request|
+    request.reply.text request[:FromUserName]
+  end
 
-      @from = xml_doc.ToUserName
-      @to = xml_doc.FromUserName
-      @msg_type = 'text'
-      @content = arr.each.map { |name, num, nickname|
+  on :text do |request, query|
+    arr = Item.where("name LIKE '%#{query}%'")
+          .eager_load(:profile)
+          .order(num: :desc)
+          .limit(5)
+          .pluck(:name, :num, :nickname)
+          .uniq
+    if arr.empty?
+      request.reply.text "没有这种药"
+    else
+      results = arr.each.map { |name, num, nickname|
         name + "\n" + nickname + "\n数量：" + num.to_s + "\n"
       }.join("\n") + "\n注意：以上结果是数量最多的前5位麻麻"
-    end
-  end
-
-  protected
-  def check_signature_params
-    if params[:nonce].nil? || params[:timestamp].nil? || params[:signature].nil?
-      render plain: "Bad request", status: :bad_request
-    end
-  end
-
-  def verify_signature
-    array = [Figaro.env.wechat_token,
-             params[:timestamp],
-             params[:nonce]].sort
-    dev_signature = Digest::SHA1.hexdigest(array.join)
-    if params[:signature] != dev_signature
-      render plain: "Invalid signature", status: :forbidden
+      request.reply.text results
     end
   end
 

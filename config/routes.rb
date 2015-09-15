@@ -9,8 +9,8 @@ Rails.application.routes.draw do
                registrations: 'users/registrations'
              }
 
-  get '/wechat' => 'wechat#verify'
-  post '/wechat' => 'wechat#msg'
+  get '/wechat' => 'wechat#show'
+  post '/wechat' => 'wechat#create'
 
   root to: "items#index"
   resources :items
