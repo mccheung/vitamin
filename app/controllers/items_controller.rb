@@ -2,7 +2,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  # before_action :set_jssdk, only: [:new]
 
   # GET /items
   # GET /items.json
@@ -78,15 +77,5 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :intro, :num,
                                  :opened, :buy_from, :expire_at,
                                  :remark)
-  end
-
-  def set_jssdk
-    @app_id = $wechat_app_id
-    @timestamp = Time.now.to_i
-    @nonce = SecureRandom.hex
-    @url = request.original_url
-    jsapi_ticket = $redis.get "jsapi_ticket:#{$wechat_app_id}"
-    @signature = WechatHelper.jssdk_signature(
-      jsapi_ticket, @timestamp, @nonce, @url)
   end
 end
