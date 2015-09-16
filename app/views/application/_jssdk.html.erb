@@ -2,10 +2,10 @@
 <script>
  wx.config({
    debug: true,
-   appId: '<%= @app_id %>',
-   timestamp: <%= @timestamp %>,
-   nonceStr: '<%= @nonce %>',
-   signature: '<%= @signature %>',
+   appId: '<%= Figaro.env.wechat_app_id %>',
+   timestamp: <%= @hash[:timestamp] %>,
+   nonceStr: '<%= @hash[:noncestr] %>',
+   signature: '<%= @hash[:signature] %>',
    jsApiList: [
      'chooseImage',
      'previewImage',

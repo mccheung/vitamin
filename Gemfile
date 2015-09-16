@@ -47,9 +47,6 @@ end
 
 gem 'devise'
 gem 'figaro'
-gem 'nokogiri'
-gem 'multi_xml'
-gem 'addressable'
 gem 'meta-tags'
 
 # components

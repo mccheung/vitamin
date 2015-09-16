@@ -1,8 +1,4 @@
-require 'wechat'
-
 class SearchController < ApplicationController
-  include Wechat
-  
   before_action :authenticate_user!
   before_action :set_jssdk
 
@@ -15,9 +11,14 @@ class SearchController < ApplicationController
     @results = Item.search(@query)
   end
 
-  private
+  protected
 
   def query_params
     params.require(:query).permit(:str, :longitude, :latitude)
+  end
+
+  def set_jssdk
+    # TODO dirty code
+    @hash = WechatController.wechat.jsapi_ticket.signature(request.original_url)
   end
 end
