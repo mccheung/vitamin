@@ -45,21 +45,27 @@ group :development do
   gem 'spring'
 end
 
-gem 'redis'
-gem 'figaro'
-gem 'qiniu', '~> 6.2.1'
 gem 'devise'
-
-gem 'multi_xml'
+gem 'figaro'
 gem 'nokogiri'
-
+gem 'multi_xml'
 gem 'addressable'
 gem 'meta-tags'
+
+# components
+gem 'puma'
+gem 'sidekiq'
 gem 'bower-rails', "~> 0.10.0"
 
-gem 'puma'
+# externel service
+gem 'qiniu', '~> 6.2.1'
 gem 'instapush-api'
+gem 'wechat'
 
+# performance monitor
 gem 'newrelic_rpm'
 
-gem 'wechat'
+# search engine
+gem 'elasticsearch'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'

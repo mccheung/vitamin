@@ -23,6 +23,9 @@ module Vitamin
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    # Load sidekiq workers
+    config.eager_load_paths += ["#{config.root}/app/workers"]
+
     # bower
     config.assets.paths <<
       Rails.root.join("vendor", "assets", "bower_components")
