@@ -1,0 +1,44 @@
+<% title t('title.search') %>
+
+<%= form_for(:query, :html => {:class => 'ui form warning', :onsubmit => "return doSubmit();"}) do |f| %>
+  <%= f.hidden_field :longitude %>
+  <%= f.hidden_field :latitude %>
+
+  <div class="ui pink center aligned segment">
+    <div class="field">
+      <div class="ui huge icon input">
+        <%= f.text_field :str, placeholder: '请输入药品名称或症状' %>
+        <i class="search icon"></i>
+      </div>
+    </div>
+    <%= f.submit("搜索", :class => 'fluid pink ui button') %>
+  </div>
+<% end %>
+
+<%= render "jssdk" %>
+
+<script>
+ var lng = 0.0;
+ var lat = 0.0;
+
+ function doSubmit() {
+   if(lng == 0.0 || lat == 0.0) {
+     alert("无法获得您的定位，请刷新重试");
+     return false;
+   } else {
+     $('#query_longitude').val(lng);
+     $('#query_latitude').val(lat);
+     return true;
+   }
+ }
+
+ wx.ready(function() {
+   wx.getLocation({
+     type: 'gcj02',
+     success: function(res) {
+       lng = res.longitude;
+       lat = res.latitude;
+     }
+   });
+ });
+</script>

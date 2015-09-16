@@ -1,0 +1,38 @@
+<div class="ui segments">
+  <div class="ui segment">
+    <p class="ui ribbon pink label"><%= r.name %></p>
+    <p class="ui top right attached blue label">
+      <%= r.distance.round(2) %> Km
+    </p>
+  </div>
+
+  <div class="ui segments">
+    <div class="ui segment">
+      <h5 class="ui header">药品主人</h5>
+      <p><%= r.profile.nickname %></p>
+    </div>
+    <div class="ui segment">
+      <h4 class="ui header">主治功效</h4>
+      <p><%= r.intro %></p>
+    </div>
+    <div class="ui segment">
+      <h4 class="ui header">购买渠道</h4>
+      <p>
+        <% if r.buy_from.blank? %>
+          未填写
+        <% else %>
+          <%= r.buy_from %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <div class="ui segment">
+    <a class="address" href="#"
+       data-owner="<%= r.profile.nickname %>"
+       data-location="<%= r.profile.location %>"
+       data-address="<%= r.profile.address %>">
+      <i class="marker icon"></i>
+      <%= r.profile.address %>
+    </a>
+  </div>
+</div>

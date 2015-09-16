@@ -1,5 +1,5 @@
 <% if current_user %>
-  <div class="ui pink inverted three item labeled icon attached borderless small menu">
+  <div class="ui pink inverted four item labeled icon attached borderless small menu">
     <%= link_to(items_path, class: "item #{controller.class == ItemsController and controller.action_name == 'index' ? 'active' : ''}") do %>
       <i class="lab icon"></i><%= t(:'title.items') %>
     <% end %>
@@ -11,6 +11,10 @@
 
     <%= link_to(edit_profile_path(current_user), class: "item #{controller.class == ProfilesController and controller.action_name == 'edit' ? 'active' : ''}") do %>
       <i class="setting icon"></i><%= t(:'title.edit_profile') %>
+    <% end %>
+
+    <%= link_to(search_path, class: "item #{controller.class == SearchController ? 'active' : ''}") do %>
+      <i class="search icon"></i><%= t('title.search') %>
     <% end %>
   </div>
 <% end %>
