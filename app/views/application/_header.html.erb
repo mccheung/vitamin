@@ -13,7 +13,7 @@
       <i class="setting icon"></i><%= t(:'title.edit_profile') %>
     <% end %>
 
-    <%= link_to(search_path, class: "item #{controller.class == SearchController ? 'active' : ''}") do %>
+    <%= link_to(new_search_path, class: "item #{controller.class == SearchesController ? 'active' : ''}") do %>
       <i class="search icon"></i><%= t('title.search') %>
     <% end %>
   </div>

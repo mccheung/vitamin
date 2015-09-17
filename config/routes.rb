@@ -12,8 +12,7 @@ Rails.application.routes.draw do
   get '/wechat' => 'wechat#show'
   post '/wechat' => 'wechat#create'
   
-  get '/search' => 'search#new'
-  post '/search' => 'search#create'
+  resource :search, only: [:new, :show]
 
   root to: "items#index"
   resources :items

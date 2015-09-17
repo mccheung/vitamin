@@ -1,4 +1,4 @@
-class SearchController < ApplicationController
+class SearchesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_jssdk
 
@@ -6,7 +6,7 @@ class SearchController < ApplicationController
     @query = Query.new
   end
 
-  def create
+  def show
     @query = Query.new(query_params)
     @results = Item.search_by_distance(@query)
   end
