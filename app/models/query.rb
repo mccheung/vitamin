@@ -1,6 +1,6 @@
 class Query
   include ActiveModel::Model
-  attr_accessor :str, :longitude, :latitude, :sort_by
+  attr_accessor :str, :longitude, :latitude
 
   def initialize(attributes={})
     super
