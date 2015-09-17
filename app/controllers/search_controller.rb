@@ -8,7 +8,7 @@ class SearchController < ApplicationController
 
   def create
     @query = Query.new(query_params)
-    @results = Item.search(@query)
+    @results = Item.search_by_distance(@query)
   end
 
   private

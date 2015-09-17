@@ -40,45 +40,54 @@ module ItemSearchable
       hash
     end
 
-    def self.search(query)
+    def self.search_by_distance(query)
       str = query.str
       longitude = query.longitude.to_f
       latitude = query.latitude.to_f
 
-      @search_definition = {
-        fields: [
-          "_source"
-        ],
-        query: {
-          filtered: {
-            query: {
-              multi_match: {
-                query: str,
-                fields: ["name", "intro"]
-              }
-            },
-            filter: {
-              geo_distance: {
-                distance: "1000km",
-                location: [
-                  longitude,
-                  latitude
-                ]
-              }
-            }
-          }
-        },
-        script_fields: {
-          distance: {
-            script: "doc['location'].distanceInKm(lat, lon)",
-            params: {
-              lat: latitude,
-              lon: longitude
-            }
-          }
-        }
-      }
-      resp = __elasticsearch__.search(@search_definition)
+      definition = Elasticsearch::DSL::Search.search do
+        query do
+          function_score do
+            query do
+              filtered do
+                query do
+                  multi_match do
+                    query str
+                    fields %w[ name intro ]
+                  end
+                end
+
+                filter do
+                  geo_distance :location do
+                    lat latitude
+                    lon longitude
+                    distance "100km"
+                  end
+                end
+              end
+            end
+
+            functions do
+              gauss do
+                location do
+                  origin [longitude, latitude]
+                  offset '2km'
+                  scale '3km'
+                end
+              end
+            end
+          end
+        end
+
+        script_fields distance: {
+                        script: "doc['location'].distanceInKm(lat, lon)",
+                        params: {lat: latitude, lon:longitude}
+                      }
+
+        fields ['_source']
+      end
+
+      resp = __elasticsearch__.search definition
       resp.results.map { |r|
         r._source.merge distance: r.fields.distance[0]
       }
