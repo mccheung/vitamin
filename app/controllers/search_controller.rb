@@ -11,7 +11,7 @@ class SearchController < ApplicationController
     @results = Item.search(@query)
   end
 
-  protected
+  private
 
   def query_params
     params.require(:query).permit(:str, :longitude, :latitude)
