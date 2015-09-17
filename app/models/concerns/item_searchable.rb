@@ -61,7 +61,7 @@ module ItemSearchable
                   geo_distance :location do
                     lat latitude
                     lon longitude
-                    distance "100km"
+                    distance "50km"
                   end
                 end
               end
@@ -79,12 +79,12 @@ module ItemSearchable
           end
         end
 
+        fields ['_source']
+
         script_fields distance: {
                         script: "doc['location'].distanceInKm(lat, lon)",
                         params: {lat: latitude, lon:longitude}
                       }
-
-        fields ['_source']
       end
 
       resp = __elasticsearch__.search definition
@@ -92,5 +92,53 @@ module ItemSearchable
         r._source.merge distance: r.fields.distance[0]
       }
     end
+
+    def self.search_by_num(query)
+      str = query.str
+      longitude = query.longitude.to_f
+      latitude = query.latitude.to_f
+
+      definition = Elasticsearch::DSL::Search.search do
+        query do
+          function_score do
+            query do
+              filtered do
+                query do
+                  multi_match do
+                    query str
+                    fields %w[ name intro ]
+                  end
+                end
+
+                filter do
+                  geo_distance :location do
+                    lat latitude
+                    lon longitude
+                    distance "50km"
+                  end
+                end
+              end
+            end
+          end
+        end
+
+        sort do
+          by :num, order: 'desc'
+        end
+
+        fields ['_source']
+
+        script_fields distance: {
+                        script: "doc['location'].distanceInKm(lat, lon)",
+                        params: {lat: latitude, lon:longitude}
+                      }
+      end
+
+      resp = __elasticsearch__.search definition
+      resp.results.map { |r|
+        r._source.merge distance: r.fields.distance[0]
+      }
+    end
+
   end
 end
