@@ -7,10 +7,10 @@
 <% else %>
   <%= render "jssdk" %>
   <div class="ui two item pointing menu">
-    <%= link_to search_path(sort_by: "distance"), class: "item active" do %>
+    <%= link_to url_for(params.merge({:sort_by => 'distance'})), class: "item active" do %>
       离我最近
     <% end %>
-    <%= link_to search_path(sort_by: "num"), class: "item" do %>
+    <%= link_to url_for(params.merge({:sort_by => 'num'})), class: "item" do %>
       数量最多
     <% end %>
   </div>

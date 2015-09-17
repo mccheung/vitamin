@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
 
   def show
     @query = Query.new(query_params)
-    if @query.sort_by == 'num'
+    if params['sort_by'] == 'num'
       @results = Item.search_by_num(@query)
     else
       @results = Item.search_by_distance(@query)
