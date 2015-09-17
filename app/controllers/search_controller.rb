@@ -18,7 +18,6 @@ class SearchController < ApplicationController
   end
 
   def set_jssdk
-    # TODO dirty code
-    @hash = WechatController.wechat.jsapi_ticket.signature(request.original_url)
+    @hash = Wechat.api.jsapi_ticket.signature(request.original_url)
   end
 end
