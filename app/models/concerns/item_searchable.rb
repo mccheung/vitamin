@@ -67,15 +67,15 @@ module ItemSearchable
               end
             end
 
-            functions do
-              gauss do
-                location do
-                  origin [longitude, latitude]
-                  offset '2km'
-                  scale '3km'
-                end
-              end
-            end
+            functions << {
+              gauss: {
+                location: {
+                  origin: [longitude, latitude],
+                  offset: '2km',
+                  scale: '3km'
+                }
+              }
+            }
           end
         end
 
@@ -119,11 +119,17 @@ module ItemSearchable
                 end
               end
             end
-          end
-        end
 
-        sort do
-          by :num, order: 'desc'
+            functions << {
+              field_value_factor: {
+                field: "num",
+                factor: 0.1,
+                modifier: "log1p"
+              }
+            }
+
+            boost_mode "replace"
+          end
         end
 
         fields ['_source']
