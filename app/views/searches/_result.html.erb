@@ -31,7 +31,9 @@
     </div>
   </div>
   <div class="ui segment">
-    <a class="address" href="#"
+    <a class="address"
+       href="javascript:void(0);"
+       onclick="openLocation(this);"
        data-owner="<%= r.profile.nickname %>"
        data-location="<%= r.profile.location %>"
        data-address="<%= r.profile.address %>">
