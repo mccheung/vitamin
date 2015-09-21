@@ -2,19 +2,22 @@
 
 <script>
  <% if @resp.total_pages > @resp.current_page %>
- $('#results').visibility({
+ $('.results').visibility({
    once: true,
-   observerChanges: true,
+   observerChanges: false,
    onBottomVisible: function() {
-     $('#results').api({
+     $(this).api({
        url: '<%= url_for(params.merge({page: @resp.current_page + 1})) %>',
        on: 'now',
        dataType: 'html',
-       onSuccess: function(response) {
-         $('#results').append(response);
+       onRequest: function() {
+         $('div.loader').addClass('active');
        },
-       onFailure: function(response) {
-         console.info("error" + response);
+       onResponse: function() {
+         $('div.loader').removeClass('active');
+       },
+       onSuccess: function(response) {
+         $(this).append(response);
        }
      })
    }
