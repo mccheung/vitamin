@@ -1,0 +1,23 @@
+<%= render partial: "result", collection: @results, as: :r %>
+
+<script>
+ <% if @resp.total_pages > @resp.current_page %>
+ $('#results').visibility({
+   once: true,
+   observerChanges: true,
+   onBottomVisible: function() {
+     $('#results').api({
+       url: '<%= url_for(params.merge({page: @resp.current_page + 1})) %>',
+       on: 'now',
+       dataType: 'html',
+       onSuccess: function(response) {
+         $('#results').append(response);
+       },
+       onFailure: function(response) {
+         console.info("error" + response);
+       }
+     })
+   }
+ });
+ <% end %>
+</script>

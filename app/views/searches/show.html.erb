@@ -14,7 +14,11 @@
       数量最多
     <% end %>
   </div>
-  <%= render partial: "result", collection: @results, as: :r %>
+
+  <div id="results">
+    <%= render "results" %>
+  </div>
+
   <script>
    $('.address').each(function() {
      $(this).bind('click', function() {
