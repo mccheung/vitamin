@@ -48,6 +48,7 @@ end
 gem 'devise'
 gem 'figaro'
 gem 'meta-tags'
+gem 'kaminari'
 
 # components
 gem 'puma'

@@ -87,10 +87,7 @@ module ItemSearchable
                       }
       end
 
-      resp = __elasticsearch__.search definition
-      resp.results.map { |r|
-        r._source.merge distance: r.fields.distance[0]
-      }
+      __elasticsearch__.search definition
     end
 
     def self.search_by_num(query)
@@ -140,10 +137,7 @@ module ItemSearchable
                       }
       end
 
-      resp = __elasticsearch__.search definition
-      resp.results.map { |r|
-        r._source.merge distance: r.fields.distance[0]
-      }
+      __elasticsearch__.search(definition)
     end
 
   end

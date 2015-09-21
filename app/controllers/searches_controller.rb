@@ -9,10 +9,14 @@ class SearchesController < ApplicationController
   def show
     @query = Query.new(query_params)
     if params['sort_by'] == 'num'
-      @results = Item.search_by_num(@query)
+      @resp = Item.search_by_num(@query).page(params[:page])
     else
-      @results = Item.search_by_distance(@query)
+      @resp = Item.search_by_distance(@query).page(params[:page])
     end
+
+    @results = @resp.results.map { |r|
+      r._source.merge distance: r.fields.distance[0]
+    }
   end
 
   private
