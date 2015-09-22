@@ -1,3 +1,4 @@
+# coding: utf-8
 module ItemSearchable
   extend ActiveSupport::Concern
 
@@ -40,6 +41,7 @@ module ItemSearchable
       hash
     end
 
+    # 按距离排序
     def self.search_by_distance(query)
       str = query.str
       longitude = query.longitude.to_f
@@ -71,8 +73,8 @@ module ItemSearchable
               gauss: {
                 location: {
                   origin: [longitude, latitude],
-                  offset: '2km',
-                  scale: '3km'
+                  offset: '3km',
+                  scale: '2km'
                 }
               }
             }
@@ -90,7 +92,8 @@ module ItemSearchable
       __elasticsearch__.search definition
     end
 
-    def self.search_by_num(query)
+    # 智能排序，数量优先，距离递减
+    def self.search_by_recommend(query)
       str = query.str
       longitude = query.longitude.to_f
       latitude = query.latitude.to_f
@@ -118,11 +121,22 @@ module ItemSearchable
             end
 
             functions << {
+              gauss: {
+                location: {
+                  origin: [longitude, latitude],
+                  offset: '5km',
+                  scale: '10km'
+                }
+              }
+            }
+
+            functions << {
               field_value_factor: {
                 field: "num",
                 factor: 0.1,
                 modifier: "log1p"
-              }
+              },
+              weight: 2
             }
 
             boost_mode "replace"
