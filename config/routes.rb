@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get '(page/:page)', :action => :index, :on => :collection
   end
 
-  resources :searches, only: [:new, :show, :index], concerns: :paginatable
+  resources :searches, only: [:new, :index], concerns: :paginatable
 
   root to: "items#index"
   resources :items
