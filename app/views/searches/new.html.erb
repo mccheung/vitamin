@@ -1,6 +1,6 @@
 <% title t('title.search') %>
 
-<%= form_for(:query, :url => "/search", :method => :get, :html => {:class => 'ui form warning'}) do |f| %>
+<%= form_for(:query, :url => "/searches", :method => :get, :html => {:class => 'ui form warning'}) do |f| %>
   <%= f.hidden_field :longitude %>
   <%= f.hidden_field :latitude %>
 

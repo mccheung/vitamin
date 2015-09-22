@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
     @query = Query.new
   end
 
-  def show
+  def index
     @query = Query.new(query_params)
 
     page = params[:page]
@@ -24,7 +24,7 @@ class SearchesController < ApplicationController
     if page
       render :page, layout: false
     else
-      render :show
+      render :index
     end
   end
 
