@@ -11,10 +11,10 @@ class SearchesController < ApplicationController
 
     page = params[:page]
 
-    if params['sort_by'] == 'distance'
-      @resp = Item.search_by_distance(@query).page(page)
+    if params['sort_by'] == 'num'
+      @resp = Item.search_by_num(@query).page(page)
     else
-      @resp = Item.search_by_recommend(@query).page(page)
+      @resp = Item.search_by_distance(@query).page(page)
     end
 
     @results = @resp.results.map { |r|

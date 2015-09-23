@@ -82,6 +82,48 @@ module ItemSearchable
       __elasticsearch__.search definition
     end
 
+    # 按数量排序，如果数量相同就按距离排序
+    def self.search_by_num(query)
+      str = query.str
+      longitude = query.longitude.to_f
+      latitude = query.latitude.to_f
+
+      definition = Elasticsearch::DSL::Search.search do
+        query do
+          filtered do
+            query do
+              multi_match do
+                query str
+                fields %w[ name intro ]
+              end
+            end
+
+            filter do
+              geo_distance :location do
+                lat latitude
+                lon longitude
+                distance "50km"
+              end
+            end
+          end
+        end
+
+        sort do
+          by :num, order: 'desc'
+          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km'
+        end
+
+        fields ['_source']
+
+        script_fields distance: {
+                        script: "doc['location'].distanceInKm(lat, lon)",
+                        params: {lat: latitude, lon:longitude}
+                      }
+      end
+
+      __elasticsearch__.search(definition)
+    end
+
     # 智能排序，数量优先，距离递减
     def self.search_by_recommend(query)
       str = query.str

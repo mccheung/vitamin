@@ -7,11 +7,11 @@
 <% else %>
   <%= render "jssdk" %>
   <div class="ui two item pointing menu">
-    <%= link_to url_for(params.merge({:sort_by => 'recommend' })), class: "item #{params['sort_by'].nil? || params['sort_by'] == 'recommend' ? 'active' : ''}" do %>
-      智能排序
-    <% end %>
-    <%= link_to url_for(params.merge({:sort_by => 'distance'})), class: "item #{params['sort_by'] == 'distance' ? 'active' : ''}" do %>
+    <%= link_to url_for(params.merge({:sort_by => 'distance'})), class: "item #{params['sort_by'].nil? || params['sort_by'] == 'distance' ? 'active' : ''}" do %>
       离我最近
+    <% end %>
+    <%= link_to url_for(params.merge({:sort_by => 'num' })), class: "item #{params['sort_by'] == 'num' ? 'active' : ''}" do %>
+      数量最多
     <% end %>
   </div>
 
