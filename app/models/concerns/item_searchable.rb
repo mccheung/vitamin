@@ -49,36 +49,26 @@ module ItemSearchable
 
       definition = Elasticsearch::DSL::Search.search do
         query do
-          function_score do
+          filtered do
             query do
-              filtered do
-                query do
-                  multi_match do
-                    query str
-                    fields %w[ name intro ]
-                  end
-                end
-
-                filter do
-                  geo_distance :location do
-                    lat latitude
-                    lon longitude
-                    distance "50km"
-                  end
-                end
+              multi_match do
+                query str
+                fields %w[ name intro ]
               end
             end
 
-            functions << {
-              gauss: {
-                location: {
-                  origin: [longitude, latitude],
-                  offset: '3km',
-                  scale: '2km'
-                }
-              }
-            }
+            filter do
+              geo_distance :location do
+                lat latitude
+                lon longitude
+                distance "50km"
+              end
+            end
           end
+        end
+
+        sort do
+          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km'
         end
 
         fields ['_source']
