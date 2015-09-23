@@ -1,35 +1,42 @@
 <div class="ui segments">
   <div class="ui segment">
-    <p class="ui ribbon pink label"><%= r.name %></p>
-    <p class="ui top right attached blue label">
-      <%= r.distance.round(2) %> Km
-    </p>
-  </div>
-
-  <div class="ui segments">
-    <div class="ui segment">
-      <h5 class="ui header">药品主人</h5>
-      <p><%= r.profile.nickname %></p>
-    </div>
-    <div class="ui segment">
-      <h5 class="ui header">数量</h5>
-      <p><%= r.num %></p>
-    </div>
-    <div class="ui segment">
-      <h4 class="ui header">主治功效</h4>
-      <p><%= r.intro %></p>
-    </div>
-    <div class="ui segment">
-      <h4 class="ui header">购买渠道</h4>
-      <p>
+    <p class="ui large top attached pink label"><%= r.name %></p>
+    <div class="ui divided list">
+      <div class="item">
+        <div class="ui large horizontal label">药品主人</div>
+        <%= r.profile.nickname %>
+      </div>
+      <div class="item">
+        <div class="ui large horizontal label">药品数量</div>
+        <%= r.num %>
+      </div>
+      <div class="item">
+        <div class="ui large horizontal label">开封状态</div>
+        <% if r.opened? %>
+          已开封
+        <% else %>
+          未开封
+        <% end %>
+      </div>
+      <div class="item">
+        <div class="ui large horizontal label">购买渠道</div>
         <% if r.buy_from.blank? %>
           未填写
         <% else %>
           <%= r.buy_from %>
         <% end %>
-      </p>
+      </div>
+      <div class="item">
+        <div class="ui large horizontal label">功效</div>
+        <%= r.intro %>
+      </div>
+      <div class="item">
+        <div class="ui large horizontal label">备注</div>
+        <%= r.remark %>
+      </div>
     </div>
   </div>
+
   <div class="ui segment">
     <a class="address"
        href="javascript:void(0);"
@@ -40,5 +47,8 @@
       <i class="marker icon"></i>
       <%= r.profile.address %>
     </a>
+    <div class="ui bottom right attached label">
+      <%= r.distance.round(2) %> Km
+    </div>
   </div>
 </div>
