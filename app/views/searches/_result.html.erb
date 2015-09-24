@@ -1,17 +1,19 @@
 <div class="ui segments">
   <div class="ui segment">
-    <p class="ui large top attached pink label"><%= r.name %></p>
+    <p class="ui top attached pink label"><%= r.name %></p>
+  </div>
+  <div class="ui segment">
     <div class="ui divided list">
       <div class="item">
-        <div class="ui large horizontal label">药品主人</div>
+        <div class="ui horizontal label">药品主人</div>
         <%= r.profile.nickname %>
       </div>
       <div class="item">
-        <div class="ui large horizontal label">药品数量</div>
+        <div class="ui horizontal label">药品数量</div>
         <%= r.num %>
       </div>
       <div class="item">
-        <div class="ui large horizontal label">开封状态</div>
+        <div class="ui horizontal label">开封状态</div>
         <% if r.opened? %>
           已开封
         <% else %>
@@ -19,7 +21,7 @@
         <% end %>
       </div>
       <div class="item">
-        <div class="ui large horizontal label">购买渠道</div>
+        <div class="ui horizontal label">购买渠道</div>
         <% if r.buy_from.blank? %>
           未填写
         <% else %>
@@ -27,15 +29,17 @@
         <% end %>
       </div>
       <div class="item">
-        <div class="ui large horizontal label">功效</div>
+        <div class="ui horizontal label">药品功效</div>
         <%= r.intro %>
-      </div>
-      <div class="item">
-        <div class="ui large horizontal label">备注</div>
-        <%= r.remark %>
       </div>
     </div>
   </div>
+
+  <% unless r.remark.blank? %>
+    <div class="ui segment">
+      <p>备注: <%= r.remark %></p>
+    </div>
+  <% end %>
 
   <div class="ui segment">
     <a class="address"
