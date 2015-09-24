@@ -10,7 +10,7 @@ class ProfileIndexer
       return if items.empty?
       Item.__elasticsearch__.client.bulk index: Item.index_name,
                                          type: Item.document_type,
-                                         body: prepare_items(items, profile)
+                                         body: prepare_items(items)
     else
       raise ArgumentError, "Unknown operation '#{operation}'"
     end
@@ -18,7 +18,7 @@ class ProfileIndexer
 
   private
 
-  def prepare_items(items, profile)
+  def prepare_items(items)
     items.map do |item|
       doc = item.as_indexed_json
       {index: {_id: item.id, data: doc}}
