@@ -1,4 +1,6 @@
 class Item < ActiveRecord::Base
+  include ItemSearchable
+  
   belongs_to :user
   has_one :profile, through: :user
 

@@ -1,0 +1,58 @@
+<div class="ui segments">
+  <div class="ui segment">
+    <p class="ui top attached pink label"><%= r.name %></p>
+  </div>
+  <div class="ui segment">
+    <div class="ui divided list">
+      <div class="item">
+        <div class="ui horizontal label">药品主人</div>
+        <%= r.profile.nickname %>
+      </div>
+      <div class="item">
+        <div class="ui horizontal label">药品数量</div>
+        <%= r.num %>
+      </div>
+      <div class="item">
+        <div class="ui horizontal label">开封状态</div>
+        <% if r.opened? %>
+          已开封
+        <% else %>
+          未开封
+        <% end %>
+      </div>
+      <div class="item">
+        <div class="ui horizontal label">购买渠道</div>
+        <% if r.buy_from.blank? %>
+          未填写
+        <% else %>
+          <%= r.buy_from %>
+        <% end %>
+      </div>
+      <div class="item">
+        <div class="ui horizontal label">药品功效</div>
+        <%= r.intro %>
+      </div>
+    </div>
+  </div>
+
+  <% unless r.remark.blank? %>
+    <div class="ui segment">
+      <p>备注: <%= r.remark %></p>
+    </div>
+  <% end %>
+
+  <div class="ui segment">
+    <a class="address"
+       href="javascript:void(0);"
+       onclick="openLocation(this);"
+       data-owner="<%= r.profile.nickname %>"
+       data-location="<%= r.profile.location %>"
+       data-address="<%= r.profile.address %>">
+      <i class="marker icon"></i>
+      <%= r.profile.address %>
+    </a>
+    <div class="ui bottom right attached label">
+      <%= r.distance.round(2) %> Km
+    </div>
+  </div>
+</div>

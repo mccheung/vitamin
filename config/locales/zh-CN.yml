@@ -8,6 +8,8 @@ zh-CN:
     items: '我的药品'
     bind_account: '绑定微信号'
     edit_profile: '个人资料'
+    search: '搜索'
+    search_results: '搜索结果'
 
   helpers:
     label:
@@ -17,6 +19,8 @@ zh-CN:
         num: '数量'
       profile:
         nickname: '昵称'
+      query:
+        str: '名称或功效'
 
     submit:
       profile:
@@ -24,6 +28,8 @@ zh-CN:
       item:
         create: '添加'
         update: '修改'
+      query:
+        create: '搜索'
 
   activerecord:
     attributes:

@@ -1,0 +1,26 @@
+<%= render partial: "result", collection: @results, as: :r %>
+
+<script>
+ <% if @resp.total_pages > @resp.current_page %>
+ $('.results').visibility({
+   once: true,
+   observerChanges: false,
+   onBottomVisible: function() {
+     $(this).api({
+       url: '<%= url_for(params.merge({page: @resp.current_page + 1})) %>',
+       on: 'now',
+       dataType: 'html',
+       onRequest: function() {
+         $('div.loader').addClass('active');
+       },
+       onResponse: function() {
+         $('div.loader').removeClass('active');
+       },
+       onSuccess: function(response) {
+         $(this).append(response);
+       }
+     })
+   }
+ });
+ <% end %>
+</script>

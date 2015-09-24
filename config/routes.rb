@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   get '/wechat' => 'wechat#show'
   post '/wechat' => 'wechat#create'
 
+  concern :paginatable do
+    get '(page/:page)', :action => :index, :on => :collection
+  end
+
+  resources :searches, only: [:new, :index], concerns: :paginatable
+
   root to: "items#index"
   resources :items
   resources :profiles

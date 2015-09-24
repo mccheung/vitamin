@@ -1,0 +1,40 @@
+<% title t(:'title.search_results') %>
+
+<% if @results.empty? %>
+  <div class="ui center aligned pink segment">
+    <p>没有找到此种药品</p>
+  </div>
+<% else %>
+  <%= render "jssdk" %>
+  <div class="ui two item pointing menu">
+    <%= link_to url_for(params.merge({:sort_by => 'distance'})), class: "item #{params['sort_by'].nil? || params['sort_by'] == 'distance' ? 'active' : ''}" do %>
+      离我最近
+    <% end %>
+    <%= link_to url_for(params.merge({:sort_by => 'num' })), class: "item #{params['sort_by'] == 'num' ? 'active' : ''}" do %>
+      数量最多
+    <% end %>
+  </div>
+
+  <div class="results">
+    <%= render "results" %>
+  </div>
+
+  <div class="ui centered large inline loader">
+  </div>
+
+  <script>
+   function openLocation(el) {
+     var location = $(el).data('location');
+     var address = $(el).data('address');
+     var owner = $(el).data('owner');
+     wx.openLocation({
+       latitude: location[1],
+       longitude: location[0],
+       name: address, // 位置名
+       address: owner, // 地址详情说明
+       scale: 15, // 地图缩放级别,整形值,范围从1~28。默认为最大
+       infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+     });
+   }
+  </script>
+<% end %>
