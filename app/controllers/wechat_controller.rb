@@ -12,19 +12,16 @@ class WechatController < ApplicationController
   end
 
   on :text do |request, query|
-    arr = Item.where("name LIKE '%#{query}%'")
-          .eager_load(:profile)
-          .order(num: :desc)
-          .limit(5)
-          .pluck(:name, :num, :nickname)
-          .uniq
-    if arr.empty?
+    resp = Item.search query: {match: {name: query}},
+                       sort: [num: {order: 'desc'}],
+                       size: 5
+    if resp.results.total == 0
       request.reply.text "没有这种药"
     else
-      results = arr.each.map { |name, num, nickname|
-        name + "\n" + nickname + "\n数量：" + num.to_s + "\n"
+      msg = resp.results.map { |r|
+        r.name + "\t" + r.num.to_s + "个\n" + r.profile.nickname + "\n"
       }.join("\n") + "\n注意：以上结果是数量最多的前5位麻麻"
-      request.reply.text results
+      request.reply.text msg
     end
   end
 
