@@ -3,10 +3,16 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    if session.has_key?(:openid)
-      redirect_to new_user_registration_path
+    user = User.find_for_authentication(:openid => openid)
+    if user
+      sign_in(:user, user)
+      redirect_to items_path
     else
-      super
+      if session.has_key?(:openid)
+        redirect_to new_user_registration_path
+      else
+        super
+      end
     end
   end
 
