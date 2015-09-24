@@ -65,7 +65,7 @@ module ItemSearchable
         end
 
         sort do
-          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km'
+          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km', distance_type: 'plane'
         end
 
         fields ['_source']
@@ -103,7 +103,7 @@ module ItemSearchable
 
         sort do
           by :num, order: 'desc'
-          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km'
+          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km', distance_type: 'plane'
         end
 
         fields ['_source']
