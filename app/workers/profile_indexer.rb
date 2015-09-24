@@ -6,11 +6,11 @@ class ProfileIndexer
     case operation.to_s
     when /update/
       profile = Profile.find(record_id)
-      item_ids = profile.item_ids
-      return if item_ids.empty?
+      items = profile.items
+      return if items.empty?
       Item.__elasticsearch__.client.bulk index: Item.index_name,
                                          type: Item.document_type,
-                                         body: prepare_items(item_ids, profile)
+                                         body: prepare_items(items, profile)
     else
       raise ArgumentError, "Unknown operation '#{operation}'"
     end
@@ -18,16 +18,10 @@ class ProfileIndexer
 
   private
 
-  def prepare_items(item_ids, profile)
-    doc = {
-      profile: {
-        nickname: profile.nickname,
-        address: profile.address,
-        location: profile.location
-      }
-    }
-    item_ids.map do |item_id|
-      {update: {_id: item_id, data: {doc: doc}}}
+  def prepare_items(items, profile)
+    items.map do |item|
+      doc = item.as_indexed_json
+      {index: {_id: item.id, data: doc}}
     end
   end
 end
