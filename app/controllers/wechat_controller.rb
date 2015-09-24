@@ -12,7 +12,7 @@ class WechatController < ApplicationController
   end
 
   on :text do |request, query|
-    resp = Item.search query: {match: {name: query}},
+    resp = Item.search query: {term: {name: query}},
                        sort: [num: {order: 'desc'}],
                        size: 5
     if resp.results.total == 0
