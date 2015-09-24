@@ -16,7 +16,7 @@ class WechatController < ApplicationController
                        sort: [num: {order: 'desc'}],
                        size: 5
     if resp.results.total == 0
-      request.reply.text "没有这种药"
+      request.reply.text random_text
     else
       msg = resp.results.map { |r|
         r.name + "\t" + r.num.to_s + "个\n" + r.profile.nickname + "\n"
@@ -32,6 +32,11 @@ class WechatController < ApplicationController
     else
       %Q[您的微信号还未与马村药品库建立绑定。点击<a href="#{Figaro.env.app_domain}/users/sign_up?oid=#{openid}">进行绑定</a>]
     end
+  end
+
+  def random_text
+    arr = %w[ 你是不是要"借药" 在聊天框输入药名关键字就能查询哦 有新药记得来添加哦 药品出借后记得更新数量哟]
+    arr.at Random.rand(arr.length)
   end
 
 end
