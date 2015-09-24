@@ -1,4 +1,4 @@
-<% if current_user %>
+<% if user_signed_in? %>
   <div class="ui pink inverted four item labeled icon attached borderless small menu">
     <%= link_to(items_path, class: "item #{controller.class == ItemsController and controller.action_name == 'index' ? 'active' : ''}") do %>
       <i class="lab icon"></i><%= t(:'title.items') %>
