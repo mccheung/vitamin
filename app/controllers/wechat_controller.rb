@@ -35,7 +35,7 @@ class WechatController < ApplicationController
   end
 
   def random_text
-    arr = %w[ 你是不是要"借药" 在聊天框输入药名关键字就能查询哦 有新药记得来添加哦 药品出借后记得更新数量哟]
+    arr = %w[ 聊天框中输入"借药"后可登录马村药品库 在聊天框输入药名关键字就能查询哦 有新药记得来添加哦 药品出借后记得更新数量哟]
     arr.at Random.rand(arr.length)
   end
 
