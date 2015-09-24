@@ -3,4 +3,4 @@
 
 # asset 'bootstrap'
 
-asset 'semantic', "2.1.2"
+asset 'semantic', "2.1.4"
