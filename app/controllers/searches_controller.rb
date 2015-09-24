@@ -12,9 +12,9 @@ class SearchesController < ApplicationController
     page = params[:page]
 
     if params['sort_by'] == 'num'
-      @resp = Item.search_by_num(@query).page(page)
+      @resp = Item.search_by_num(@query, current_user.id).page(page)
     else
-      @resp = Item.search_by_distance(@query).page(page)
+      @resp = Item.search_by_distance(@query, current_user.id).page(page)
     end
 
     @results = @resp.results.map { |r|

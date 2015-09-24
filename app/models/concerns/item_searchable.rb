@@ -23,6 +23,7 @@ module ItemSearchable
       indexes :buy_from, index: 'no'
       indexes :remark, index: 'no'
       indexes :opened, type: 'boolean'
+      indexes :user_id, type: 'integer'
 
       # profile
       indexes :profile do
@@ -34,7 +35,7 @@ module ItemSearchable
 
     def as_indexed_json(options={})
       hash = as_json(
-        only: [:name, :intro, :num, :buy_from, :remark, :opened],
+        only: [:name, :intro, :num, :buy_from, :remark, :opened, :user_id],
         include: { profile: {only: [:nickname, :address]} }
       )
       hash['profile']['location'] = self.profile.location
@@ -42,7 +43,7 @@ module ItemSearchable
     end
 
     # 按距离排序
-    def self.search_by_distance(query)
+    def self.search_by_distance(query, exclude_user_id)
       str = query.str
       longitude = query.longitude.to_f
       latitude = query.latitude.to_f
@@ -51,17 +52,17 @@ module ItemSearchable
         query do
           filtered do
             query do
-              multi_match do
-                query str
-                fields %w[ name intro ]
-              end
-            end
+              bool do
+                must do
+                  multi_match do
+                    query str
+                    fields %w[ name intro ]
+                  end
+                end
 
-            filter do
-              geo_distance :location do
-                lat latitude
-                lon longitude
-                distance "50km"
+                must_not do
+                  term user_id: exclude_user_id
+                end
               end
             end
           end
@@ -83,7 +84,7 @@ module ItemSearchable
     end
 
     # 按数量排序，如果数量相同就按距离排序
-    def self.search_by_num(query)
+    def self.search_by_num(query, exclude_user_id)
       str = query.str
       longitude = query.longitude.to_f
       latitude = query.latitude.to_f
@@ -92,17 +93,17 @@ module ItemSearchable
         query do
           filtered do
             query do
-              multi_match do
-                query str
-                fields %w[ name intro ]
-              end
-            end
+              bool do
+                must do
+                  multi_match do
+                    query str
+                    fields %w[ name intro ]
+                  end
+                end
 
-            filter do
-              geo_distance :location do
-                lat latitude
-                lon longitude
-                distance "50km"
+                must_not do
+                  term user_id: exclude_user_id
+                end
               end
             end
           end
