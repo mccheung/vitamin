@@ -2,20 +2,15 @@ class ProfileIndexer
   include Sidekiq::Worker
   sidekiq_options queue: 'profile_indexer', retry: false
 
-  Logger = Sidekiq.logger.level == Logger::DEBUG ? Sidekiq.logger : nil
-  Client = Elasticsearch::Client.new host: 'localhost:9200', logger: Logger
-
   def perform(operation, record_id)
-    logger.debug [operation, "ID: #{record_id}"]
-
     case operation.to_s
     when /update/
       profile = Profile.find(record_id)
       item_ids = profile.item_ids
       return if item_ids.empty?
-      Client.bulk index: Item.index_name,
-                  type: Item.document_type,
-                  body: prepare_items(item_ids, profile)
+      Item.__elasticsearch__.client.bulk index: Item.index_name,
+                                         type: Item.document_type,
+                                         body: prepare_items(item_ids, profile)
     else
       raise ArgumentError, "Unknown operation '#{operation}'"
     end
