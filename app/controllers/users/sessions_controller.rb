@@ -3,6 +3,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
+    openid = params['oid']
     user = User.find_for_authentication(:openid => openid)
     if user
       sign_in(:user, user)
