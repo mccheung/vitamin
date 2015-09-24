@@ -30,12 +30,10 @@ class WechatController < ApplicationController
 
   private
   def bind_url(openid)
-    user = User.find_for_authentication(:openid => openid)
-    if user
-      %Q[<a href="#{Figaro.env.app_domain}">马村药品库</a>]
+    if User.find_for_authentication(:openid => openid)
+      %Q[<a href="#{Figaro.env.app_domain}/users/sign_in?oid=#{openid}">马村药品库</a>]
     else
-      link = %Q[<a href="#{Figaro.env.app_domain}/users/sign_up?oid=#{openid}">进行绑定</a>]
-      "您的微信号还未与马村药品库建立绑定。点击#{link}"
+      %Q[您的微信号还未与马村药品库建立绑定。点击<a href="#{Figaro.env.app_domain}/users/sign_up?oid=#{openid}">进行绑定</a>]
     end
   end
 
