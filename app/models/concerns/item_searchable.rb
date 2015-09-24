@@ -50,20 +50,16 @@ module ItemSearchable
 
       definition = Elasticsearch::DSL::Search.search do
         query do
-          filtered do
-            query do
-              bool do
-                must do
-                  multi_match do
-                    query str
-                    fields %w[ name intro ]
-                  end
-                end
-
-                must_not do
-                  term user_id: exclude_user_id
-                end
+          bool do
+            must do
+              multi_match do
+                query str
+                fields %w[ name intro ]
               end
+            end
+
+            must_not do
+              term user_id: exclude_user_id
             end
           end
         end
@@ -91,20 +87,16 @@ module ItemSearchable
 
       definition = Elasticsearch::DSL::Search.search do
         query do
-          filtered do
-            query do
-              bool do
-                must do
-                  multi_match do
-                    query str
-                    fields %w[ name intro ]
-                  end
-                end
-
-                must_not do
-                  term user_id: exclude_user_id
-                end
+          bool do
+            must do
+              multi_match do
+                query str
+                fields %w[ name intro ]
               end
+            end
+
+            must_not do
+              term user_id: exclude_user_id
             end
           end
         end
