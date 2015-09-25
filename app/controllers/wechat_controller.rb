@@ -3,6 +3,10 @@ class WechatController < ApplicationController
 
   wechat_responder
 
+  on :event, with: 'subscribe' do |request|
+    request.reply.text '欢迎使用本微信号的服务。发送"借药"可进入马村药品库。'
+  end
+
   on :text, with: "借药" do |request|
     request.reply.text "#{bind_url request[:FromUserName]}"
   end
