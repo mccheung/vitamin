@@ -42,142 +42,148 @@ module ItemSearchable
       hash
     end
 
-    # 按距离排序
-    def self.search_by_distance(query, exclude_user_id)
-      str = query.str
-      longitude = query.longitude.to_f
-      latitude = query.latitude.to_f
+    class << self
+      # 按距离排序
+      def search_by_distance(query, exclude_user_id)
+        str = query.str
+        longitude = query.longitude.to_f
+        latitude = query.latitude.to_f
 
-      definition = Elasticsearch::DSL::Search.search do
-        query do
-          bool do
-            must do
-              multi_match do
-                query str
-                fields %w[ name intro ]
-              end
-            end
-
-            must_not do
-              term user_id: exclude_user_id
-            end
-          end
-        end
-
-        sort do
-          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km', distance_type: 'plane'
-        end
-
-        fields ['_source']
-
-        script_fields distance: {
-                        script: "doc['location'].distanceInKm(lat, lon)",
-                        params: {lat: latitude, lon:longitude}
-                      }
-      end
-
-      __elasticsearch__.search definition
-    end
-
-    # 按数量排序，如果数量相同就按距离排序
-    def self.search_by_num(query, exclude_user_id)
-      str = query.str
-      longitude = query.longitude.to_f
-      latitude = query.latitude.to_f
-
-      definition = Elasticsearch::DSL::Search.search do
-        query do
-          bool do
-            must do
-              multi_match do
-                query str
-                fields %w[ name intro ]
-              end
-            end
-
-            must_not do
-              term user_id: exclude_user_id
-            end
-          end
-        end
-
-        sort do
-          by :num, order: 'desc'
-          by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km', distance_type: 'plane'
-        end
-
-        fields ['_source']
-
-        script_fields distance: {
-                        script: "doc['location'].distanceInKm(lat, lon)",
-                        params: {lat: latitude, lon:longitude}
-                      }
-      end
-
-      __elasticsearch__.search(definition)
-    end
-
-    # 智能排序，数量优先，距离递减
-    def self.search_by_recommend(query)
-      str = query.str
-      longitude = query.longitude.to_f
-      latitude = query.latitude.to_f
-
-      definition = Elasticsearch::DSL::Search.search do
-        query do
-          function_score do
-            query do
-              filtered do
-                query do
-                  multi_match do
-                    query str
-                    fields %w[ name intro ]
-                  end
-                end
-
-                filter do
-                  geo_distance :location do
-                    lat latitude
-                    lon longitude
-                    distance "50km"
-                  end
+        definition = Elasticsearch::DSL::Search.search do
+          query do
+            bool do
+              must do
+                multi_match do
+                  query str
+                  fields %w[ name intro ]
                 end
               end
-            end
 
-            functions << {
-              gauss: {
-                location: {
-                  origin: [longitude, latitude],
-                  offset: '5km',
-                  scale: '10km'
+              must_not do
+                term user_id: exclude_user_id
+              end
+            end
+          end
+
+          sort do
+            by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km', distance_type: 'plane'
+          end
+
+          fields ['_source']
+
+          script_fields distance: {
+                          script: "doc['location'].distanceInKm(lat, lon)",
+                          params: {lat: latitude, lon:longitude}
+                        }
+        end
+
+        __elasticsearch__.search definition
+      end
+
+      # 按数量排序，如果数量相同就按距离排序
+      def search_by_num(query, exclude_user_id)
+        str = query.str
+        longitude = query.longitude.to_f
+        latitude = query.latitude.to_f
+
+        definition = Elasticsearch::DSL::Search.search do
+          query do
+            bool do
+              must do
+                multi_match do
+                  query str
+                  fields %w[ name intro ]
+                end
+              end
+
+              must_not do
+                term user_id: exclude_user_id
+              end
+            end
+          end
+
+          sort do
+            by :num, order: 'desc'
+            by :_geo_distance, location: [longitude, latitude], order: 'asc', unit: 'km', distance_type: 'plane'
+          end
+
+          fields ['_source']
+
+          script_fields distance: {
+                          script: "doc['location'].distanceInKm(lat, lon)",
+                          params: {lat: latitude, lon:longitude}
+                        }
+        end
+
+        __elasticsearch__.search(definition)
+      end
+
+      # 智能排序，数量优先，距离递减
+      def search_by_recommend(query)
+        str = query.str
+        longitude = query.longitude.to_f
+        latitude = query.latitude.to_f
+
+        definition = Elasticsearch::DSL::Search.search do
+          query do
+            function_score do
+              query do
+                filtered do
+                  query do
+                    multi_match do
+                      query str
+                      fields %w[ name intro ]
+                    end
+                  end
+
+                  filter do
+                    geo_distance :location do
+                      lat latitude
+                      lon longitude
+                      distance "50km"
+                    end
+                  end
+                end
+              end
+
+              functions << {
+                gauss: {
+                  location: {
+                    origin: [longitude, latitude],
+                    offset: '5km',
+                    scale: '10km'
+                  }
                 }
               }
-            }
 
-            functions << {
-              field_value_factor: {
-                field: "num",
-                factor: 0.1,
-                modifier: "log1p"
-              },
-              weight: 2
-            }
+              functions << {
+                field_value_factor: {
+                  field: "num",
+                  factor: 0.1,
+                  modifier: "log1p"
+                },
+                weight: 2
+              }
 
-            boost_mode "replace"
+              boost_mode "replace"
+            end
           end
+
+          fields ['_source']
+
+          script_fields distance: {
+                          script: "doc['location'].distanceInKm(lat, lon)",
+                          params: {lat: latitude, lon:longitude}
+                        }
         end
 
-        fields ['_source']
-
-        script_fields distance: {
-                        script: "doc['location'].distanceInKm(lat, lon)",
-                        params: {lat: latitude, lon:longitude}
-                      }
+        __elasticsearch__.search(definition)
       end
 
-      __elasticsearch__.search(definition)
+      def total
+        resp = Item.__elasticsearch__.client.count
+        resp["count"]
+      end
     end
-
   end
 end
