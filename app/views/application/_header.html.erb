@@ -1,20 +1,19 @@
 <% if user_signed_in? %>
-  <div class="ui pink inverted four item labeled icon attached borderless small menu">
+  <div class="ui pink four item inverted large menu">
     <%= link_to(items_path, class: "item #{controller.class == ItemsController and controller.action_name == 'index' ? 'active' : ''}") do %>
-      <i class="lab icon"></i><%= t(:'title.items') %>
+      <%= t(:'title.items') %>
     <% end %>
 
     <%= link_to(new_item_path, class: "item #{controller.class == ItemsController and controller.action_name == 'new' ? 'active' : ''}") do %>
-      <i class="add square icon"></i><%= t(:'title.new_item') %>
+      <%= t(:'title.new_item') %>
     <% end %>
 
-
     <%= link_to(edit_profile_path(current_user), class: "item #{controller.class == ProfilesController and controller.action_name == 'edit' ? 'active' : ''}") do %>
-      <i class="setting icon"></i><%= t(:'title.edit_profile') %>
+      <%= t(:'title.edit_profile') %>
     <% end %>
 
     <%= link_to(new_search_path, class: "item #{controller.class == SearchesController ? 'active' : ''}") do %>
-      <i class="search icon"></i><%= t('title.search') %>
+      <%= t('title.search') %>
     <% end %>
   </div>
 <% end %>

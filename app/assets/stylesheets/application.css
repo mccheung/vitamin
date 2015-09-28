@@ -16,3 +16,7 @@
 main {
     margin: 14px 0;
 }
+
+.ui.menu {
+    border-radius: 0px !important;
+}
