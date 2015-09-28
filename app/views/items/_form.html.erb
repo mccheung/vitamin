@@ -1,14 +1,5 @@
 <%= form_for(@item, :html => {:class => 'ui form warning', :onsubmit => "return doSubmit();"}) do |f| %>
 
-  <div class="ui pink segment">
-    <div class="ui top left attached pink label">
-      <% if @item.persisted? %>
-        <%= t(:'title.edit_item') %>
-      <% else %>
-        <%= t(:'title.new_item') %>
-      <% end %>
-    </div>
-
     <%= error_messages! @item %>
 
     <div class="field">
@@ -83,7 +74,6 @@
       class: 'fluid ui button',
         data: { confirm: '确认删除？' } %>
     <% end %>
-  </div>
 <% end %>
 
 <script>

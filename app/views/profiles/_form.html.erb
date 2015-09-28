@@ -1,38 +1,32 @@
 <%= form_for(@profile, :html => {:class => 'ui form warning'}) do |f| %>
-  <div class="ui pink segment">
-    <div class="ui top left attached pink label">
-      <%= t(:'title.edit_profile') %>
-    </div>
+  <%= error_messages! @profile %>
 
-    <%= error_messages! @profile %>
+  <div class="field">
+    <%= f.label :nickname %>
+    <%= f.text_field :nickname %>
+  </div>
 
-    <div class="field">
-      <%= f.label :nickname %>
-      <%= f.text_field :nickname %>
-    </div>
-
-    <div class="field">
-      <label for="address">地址</label>
-      <div class="ui fluid search selection dropdown">
-        <input type="hidden" id="lng_lat">
-        <i class="dropdown icon"></i>
-        <% if f.object.address.blank? %>
-          <%= content_tag(:div, "请输入地址后从选项中选择", id: "address_name", class: ["default", "text"]) %>
-        <% else %>
-          <%= content_tag(:div, f.object.address, id: "address_name", class: "text") %>
-        <% end %>
-        <div class="menu">
-        </div>
+  <div class="field">
+    <label for="address">地址</label>
+    <div class="ui fluid search selection dropdown">
+      <input type="hidden" id="lng_lat">
+      <i class="dropdown icon"></i>
+      <% if f.object.address.blank? %>
+        <%= content_tag(:div, "请输入地址后从选项中选择", id: "address_name", class: ["default", "text"]) %>
+      <% else %>
+        <%= content_tag(:div, f.object.address, id: "address_name", class: "text") %>
+      <% end %>
+      <div class="menu">
       </div>
     </div>
+  </div>
 
-    <%= f.hidden_field :address %>
-    <%= f.hidden_field :lng %>
-    <%= f.hidden_field :lat %>
+  <%= f.hidden_field :address %>
+  <%= f.hidden_field :lng %>
+  <%= f.hidden_field :lat %>
 
-    <div class="actions">
-      <%= f.submit(:class => 'fluid pink ui button') %>
-    </div>
+  <div class="actions">
+    <%= f.submit(:class => 'fluid pink ui button') %>
   </div>
 <% end %>
 

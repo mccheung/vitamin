@@ -4,14 +4,12 @@
   <%= f.hidden_field :longitude %>
   <%= f.hidden_field :latitude %>
 
-  <div class="ui pink center aligned segment">
     <div class="field">
       <div class="ui fluid large action input">
         <%= f.text_field :str, placeholder: '请输入药品名称或症状' %>
         <div id="search" class="pink ui button">搜索</div>
       </div>
     </div>
-  </div>
 <% end %>
 
 <%= render "jssdk" %>
