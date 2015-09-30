@@ -6,11 +6,11 @@ class ProfileIndexer
     case operation.to_s
     when /update/
       profile = Profile.find(record_id)
-      items = profile.items
-      return if items.empty?
+      return if profile.address.blank?
+      return if profile.items.empty?
       Item.__elasticsearch__.client.bulk index: Item.index_name,
                                          type: Item.document_type,
-                                         body: prepare_items(items)
+                                         body: prepare_items(profile.items)
     else
       raise ArgumentError, "Unknown operation '#{operation}'"
     end

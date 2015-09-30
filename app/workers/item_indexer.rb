@@ -7,7 +7,8 @@ class ItemIndexer
 
     case operation.to_s
     when /index/
-      record = Item.find(record_id)
+      item = Item.find(record_id)
+      return if item.profile.address.blank?
       Item.__elasticsearch__.client.index index: Item.index_name,
                                           type: Item.document_type,
                                           id: record.id,
