@@ -9,6 +9,14 @@ class Profile < ActiveRecord::Base
   validates :nickname, presence: true, uniqueness: true
 
   after_commit on: [:update] do
-    ProfileIndexer.perform_async(:update,  self.id)
+    if address_changed?
+      ProfileIndexer.perform_async(:update,  self.id)
+    end
+  end
+
+  private
+
+  def address_changed?
+    previous_changes.has_key?(:address) && previous_changes[:address].any?
   end
 end
