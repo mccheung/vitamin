@@ -1,9 +1,14 @@
 <% title t('title.search') %>
 
 
-<div class="ui attached message">
+<div class="ui attached icon message">
   <i class="announcement icon"></i>
-  已收录 [<%= @total %>] 个药品
+  <div class="content">
+    <div class="header">
+      已收录 <%= @total %> 个药品
+    </div>
+    <p>在“个人设置”中填写地址，才能被收录</p>
+  </div>
 </div>
 <%= form_for(:query, :url => "/searches", :method => :get, :html => {
   :class => 'ui form attached fluid segment'}) do |f| %>
