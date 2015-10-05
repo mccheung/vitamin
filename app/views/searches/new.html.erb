@@ -3,13 +3,12 @@
 <%= form_for(:query, :url => "/searches", :method => :get, :html => {:class => 'ui form warning'}) do |f| %>
   <%= f.hidden_field :longitude %>
   <%= f.hidden_field :latitude %>
-
-    <div class="field">
-      <div class="ui fluid large action input">
-        <%= f.text_field :str, placeholder: '请输入药品名称或症状' %>
-        <div id="search" class="pink ui button">搜索</div>
-      </div>
+  <div class="field">
+    <div class="ui fluid large action input">
+      <%= f.text_field :str, placeholder: '请输入药品名称或症状' %>
+      <div id="search" class="pink ui button">搜索</div>
     </div>
+  </div>
 <% end %>
 
 <%= render "jssdk" %>
