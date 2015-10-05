@@ -22,6 +22,19 @@
   </div>
 <% end %>
 
+<% unless @top_queries.empty? %>
+  <div class="ui bottom attached info message">
+    <div class="header">
+      本周大家都在搜这些，请注意防范相关疾病
+    </div>
+    <ul class="list">
+      <% @top_queries.each do |query| %>
+        <li><%= query %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= render "jssdk" %>
 
 <script>
