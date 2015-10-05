@@ -11,8 +11,8 @@ class ItemIndexer
       return if item.profile.address.blank?
       Item.__elasticsearch__.client.index index: Item.index_name,
                                           type: Item.document_type,
-                                          id: record.id,
-                                          body: record.as_indexed_json
+                                          id: item.id,
+                                          body: item.as_indexed_json
     when /delete/
       Item.__elasticsearch__.client.delete index: Item.index_name,
                                            type: Item.document_type,
