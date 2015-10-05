@@ -5,7 +5,7 @@
     <p>没有找到此种药品</p>
   </div>
 <% else %>
-  <div class="ui two item pointing menu">
+  <div class="ui two item secondary pointing menu">
     <%= link_to url_for(params.merge({:sort_by => 'distance'})), class: "item #{params['sort_by'].nil? || params['sort_by'] == 'distance' ? 'active' : ''}" do %>
       离我最近
     <% end %>
