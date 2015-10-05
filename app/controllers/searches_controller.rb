@@ -4,6 +4,7 @@ class SearchesController < ApplicationController
 
   def new
     @query = Query.new
+    @total = Item.total
   end
 
   def index

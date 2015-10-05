@@ -181,7 +181,8 @@ module ItemSearchable
       end
 
       def total
-        resp = Item.__elasticsearch__.client.count
+        resp = __elasticsearch__.client.count index: Item.index_name,
+                                              type: Item.document_type
         resp["count"]
       end
     end
