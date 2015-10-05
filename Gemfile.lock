@@ -285,6 +285,8 @@ DEPENDENCIES
   puma
   qiniu (~> 6.2.1)
   rails (= 4.2.4)
+  redis
+  redis-namespace
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sidekiq

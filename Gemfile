@@ -69,3 +69,7 @@ gem 'elasticsearch'
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 gem 'elasticsearch-dsl'
+
+# redis
+gem 'redis'
+gem 'redis-namespace'
