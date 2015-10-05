@@ -5,7 +5,6 @@
     <p>没有找到此种药品</p>
   </div>
 <% else %>
-  <%= render "jssdk" %>
   <div class="ui two item pointing menu">
     <%= link_to url_for(params.merge({:sort_by => 'distance'})), class: "item #{params['sort_by'].nil? || params['sort_by'] == 'distance' ? 'active' : ''}" do %>
       离我最近
@@ -22,6 +21,7 @@
   <div class="ui centered large inline loader">
   </div>
 
+  <%= render "jssdk" %>
   <script>
    function openLocation(el) {
      var location = $(el).data('location');
