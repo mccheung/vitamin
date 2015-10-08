@@ -62,7 +62,7 @@ gem 'instapush-api'
 gem 'wechat', :git => 'https://github.com/goofansu/wechat.git', :branch => 'fix-access-token'
 
 # performance monitor
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 
 # search engine
 gem 'elasticsearch'
