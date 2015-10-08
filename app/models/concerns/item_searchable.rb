@@ -185,6 +185,32 @@ module ItemSearchable
                                               type: Item.document_type
         resp["count"]
       end
+
+      def import_all
+        items = Item.eager_load(:profile).where("profiles.address is not null and profiles.address != ''")
+        bulk_import items
+      end
+
+      def import_all_by_profile(profile)
+        return if profile.address.blank?
+        bulk_import profile.items
+      end
+
+      private
+      def bulk_import(items)
+        return if items.empty?
+        __elasticsearch__.client.bulk index: Item.index_name,
+                                      type: Item.document_type,
+                                      body: prepare_items(items)
+      end
+
+      def prepare_items(items)
+        items.map do |item|
+          doc = item.as_indexed_json
+          {index: {_id: item.id, data: doc}}
+        end
+      end
     end
   end
+
 end
