@@ -12,6 +12,12 @@ module QiniuHelper
     res = Net::HTTP.start(uri.host, uri.port) do |http|
       http.request(req)
     end
-    JSON.load(res.body)
+
+    result = JSON.load(res.body)
+    if result.has_key?('error')
+      raise "upload file error"
+    else
+      return result
+    end
   end
 end
