@@ -13,7 +13,8 @@ class BlogWorker
     post_user = article.css('#post-user').text
     post_date = article.css('#post-date').text
 
-    unless post_user.eql?(Figaro.env.valid_post_user)
+    valid_post_user = Figaro.env.valid_post_user
+    unless post_user.eql?(valid_post_user)
       logger.error ["required #{valid_post_user}, but received #{post_user}"]
       return
     end
