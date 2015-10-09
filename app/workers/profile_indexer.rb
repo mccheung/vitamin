@@ -1,6 +1,6 @@
 class ProfileIndexer
   include Sidekiq::Worker
-  sidekiq_options queue: 'profile_indexer', retry: false
+  sidekiq_options queue: :elasticsearch, retry: false
 
   def perform(operation, record_id)
     case operation.to_s

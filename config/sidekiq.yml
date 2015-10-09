@@ -2,8 +2,7 @@
 :concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
 :queues:
-  - item_indexer
-  - profile_indexer
+  - elasticsearch
 
 production:
   :concurrency: 20

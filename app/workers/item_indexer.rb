@@ -1,6 +1,6 @@
 class ItemIndexer
   include Sidekiq::Worker
-  sidekiq_options queue: 'item_indexer', retry: false
+  sidekiq_options queue: :elasticsearch, retry: false
 
   def perform(operation, record_id)
     logger.debug [operation, "ID: #{record_id}"]
