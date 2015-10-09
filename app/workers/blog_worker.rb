@@ -39,6 +39,7 @@ class BlogWorker
     title = article.css('title').text
     content = article.css('#js_content').children
     process_images(content)
+    process_qq_videos(content)
     return title, content
   end
 
@@ -63,5 +64,14 @@ class BlogWorker
     QiniuHelper.fetch(image_uri, Figaro.env.qiniu_bucket, SecureRandom.uuid)
   rescue
     retry unless (tries -= 1).zero?
+  end
+
+  def process_qq_videos(content)
+    videos = content.css('iframe[data-src]')
+    return content if videos.empty?
+
+    for video in videos
+      video['src'] = video['data-src']
+    end    
   end
 end
