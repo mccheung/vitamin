@@ -14,7 +14,7 @@ class BlogWorker
     post_date = article.css('#post-date').text
 
     unless post_user.eql?(Figaro.env.valid_post_user)
-      logger.debug ["Invalid post-user: #{post_user}, skipped"]
+      logger.error ["required #{valid_post_user}, but received #{post_user}"]
       return
     end
 
@@ -53,7 +53,7 @@ class BlogWorker
       .remove_attr('data-s')
       .remove_attr('data-type')
   end
-  
+
   def upload_image_to_qiniu(image_uri, tries = 2)
     QiniuHelper.fetch(image_uri, Figaro.env.qiniu_bucket, SecureRandom.uuid)
   rescue
