@@ -27,8 +27,8 @@ class BlogWorker
     File.open("#{Figaro.env.blog_posts_dir}/#{file_name}", "w") { |file|
       file.write("---\n")
       file.write("layout: post\n")
-      file.write("title: #{title}\n")
-      file.write("author: #{author}\n")
+      file.write("title: '#{title}'\n")
+      file.write("author: '#{author}'\n")
       file.write("---\n")
       file.write(content)
     }
