@@ -16,7 +16,7 @@ class WechatController < ApplicationController
   end
 
   on :text, with: /^(http:\/\/mp.weixin.qq.com\/s\?.*)/ do |request, article_uri|
-    BlogWorker.perform_in(10.seconds, article_uri)
+    BlogWorker.perform_async(article_uri)
   end
 
   on :text do |request, query|
