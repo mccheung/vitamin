@@ -13,7 +13,6 @@ class BlogWorker
     article.encoding = 'utf-8'
 
     post_user = article.css('#post-user').text
-    post_date = article.css('#post-date').text
     author = article.css('.rich_media_meta.rich_media_meta_text')[1].text
 
     valid_post_user = "2014秋天马宝宝"
@@ -22,7 +21,12 @@ class BlogWorker
       return
     end
 
-    (title, content) = fetch_article(article)
+    title = article.css('title').text
+    post_date = article.css('#post-date').text
+    content = article.css('#js_content').children
+    process_images(content, post_date)
+    process_qq_videos(content)
+
     file_name = "#{post_date}-article.html"
     File.open("#{Figaro.env.blog_posts_dir}/#{file_name}", "w") { |file|
       file.write("---\n")
@@ -34,23 +38,15 @@ class BlogWorker
     }
   end
 
-  private
-  def fetch_article(article)
-    title = article.css('title').text
-    content = article.css('#js_content').children
-    process_images(content)
-    process_qq_videos(content)
-    return title, content
-  end
-
-  def process_images(content)
+  def process_images(content, date)
     images = content.css('img[data-src]')
     return content if images.empty?
 
-    for image in images
-      result = upload_image_to_qiniu(image['data-src'])
+    images.each_with_index { |image, index|
+      qiniu_file_key = "articles/#{date}/img/#{index}"
+      result = upload_image_to_qiniu(image['data-src'], qiniu_file_key)
       image['src'] = "#{Figaro.env.qiniu_domain}/#{result['key']}"
-    end
+    }
 
     images
       .remove_attr('data-src')
@@ -60,8 +56,8 @@ class BlogWorker
       .remove_attr('data-type')
   end
 
-  def upload_image_to_qiniu(image_uri, tries = 2)
-    QiniuHelper.fetch(image_uri, Figaro.env.qiniu_bucket, SecureRandom.uuid)
+  def upload_image_to_qiniu(image_uri, qiniu_file_key, tries=2)
+    QiniuHelper.fetch(image_uri, Figaro.env.qiniu_bucket, qiniu_file_key)
   rescue
     retry unless (tries -= 1).zero?
   end
@@ -72,6 +68,6 @@ class BlogWorker
 
     for video in videos
       video['src'] = video['data-src']
-    end    
+    end
   end
 end
