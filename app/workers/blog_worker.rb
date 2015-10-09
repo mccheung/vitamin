@@ -10,6 +10,8 @@ class BlogWorker
     logger.debug ["Fetching article from: #{uri}"]
 
     article = Nokogiri::HTML(open(uri))
+    article.encoding = 'utf-8'
+
     post_user = article.css('#post-user').text
     post_date = article.css('#post-date').text
 
