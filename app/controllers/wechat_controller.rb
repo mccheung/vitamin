@@ -15,6 +15,10 @@ class WechatController < ApplicationController
     request.reply.text request[:FromUserName]
   end
 
+  on :text, with: /^(http:\/\/mp.weixin.qq.com\/s\?.*)/ do |request, article_uri|
+    BlogWorker.perform_in(10.seconds, article_uri)
+  end
+
   on :text do |request, query|
     resp = Item.search query: {match: {name: query}},
                        sort: [num: {order: 'desc'}],

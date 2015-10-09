@@ -3,6 +3,7 @@
 :pidfile: tmp/pids/sidekiq.pid
 :queues:
   - elasticsearch
+  - blog
 
 production:
   :concurrency: 20
