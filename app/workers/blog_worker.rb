@@ -14,6 +14,7 @@ class BlogWorker
 
     post_user = article.css('#post-user').text
     post_date = article.css('#post-date').text
+    author = article.css('.rich_media_meta.rich_media_meta_text')[1].text
 
     valid_post_user = "2014秋天马宝宝"
     unless post_user.eql?(valid_post_user)
@@ -27,6 +28,7 @@ class BlogWorker
       file.write("---\n")
       file.write("layout: post\n")
       file.write("title: #{title}\n")
+      file.write("author: #{author}\n")
       file.write("---\n")
       file.write(content)
     }
