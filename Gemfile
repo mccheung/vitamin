@@ -49,6 +49,7 @@ gem 'devise'
 gem 'figaro'
 gem 'meta-tags'
 gem 'kaminari'
+gem 'addressable'
 
 # components
 gem 'puma'

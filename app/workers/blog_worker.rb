@@ -1,6 +1,7 @@
 # coding: utf-8
 require 'open-uri'
 require 'securerandom'
+require 'addressable/uri'
 
 class BlogWorker
   include Sidekiq::Worker
@@ -67,7 +68,14 @@ class BlogWorker
     return content if videos.empty?
 
     for video in videos
-      video['src'] = video['data-src']
+      video_uri = Addressable::URI.parse(video['data-src'])
+      vid = video_uri.query_values['vid']
+      video['src'] = "http://v.qq.com/iframe/player.html?vid=#{vid}&auto=0"
     end
+
+    videos
+      .remove_attr('data-src')
+      .remove_attr('height')
+      .attr('width', '100%')
   end
 end
