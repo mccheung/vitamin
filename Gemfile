@@ -59,8 +59,7 @@ gem 'bower-rails', "~> 0.10.0"
 # externel service
 gem 'qiniu', '~> 6.2.1'
 gem 'instapush-api'
-# gem 'wechat'
-gem 'wechat', :git => 'https://github.com/goofansu/wechat.git', :branch => 'fix-access-token'
+gem 'wechat'
 
 # performance monitor
 # gem 'newrelic_rpm'
