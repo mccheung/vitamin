@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-
-  get '/lab' => 'home#index'
+  root "items#index"
+  get '/wechat' => 'wechat#show'
+  post '/wechat' => 'wechat#create'
 
   devise_for :users,
              controllers: {
@@ -9,18 +10,13 @@ Rails.application.routes.draw do
                registrations: 'users/registrations'
              }
 
-  get '/wechat' => 'wechat#show'
-  post '/wechat' => 'wechat#create'
+  resources :items
+  resources :profiles
 
   concern :paginatable do
     get '(page/:page)', :action => :index, :on => :collection
   end
-
   resources :searches, only: [:new, :index], concerns: :paginatable
-
-  root to: "items#index"
-  resources :items
-  resources :profiles
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
