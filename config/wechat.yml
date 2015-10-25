@@ -1,13 +1,11 @@
 default: &default
-  appid: "wx0aad0d07acc91b94"
-  secret: "09b4223ab81f54154796b805ea395d48"
-  token:  "test"
-  skip_verify_ssl: true
-
-production:
   appid: <%= Figaro.env.wechat_app_id %>
   secret: <%= Figaro.env.wechat_secret %>
   token:   <%= Figaro.env.wechat_token %>
+  skip_verify_ssl: true
+
+production:
+  <<: *default
 
 development:
   <<: *default
